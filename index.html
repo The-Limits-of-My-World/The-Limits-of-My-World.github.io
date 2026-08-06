@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>내 세계의 한계</title>
+<meta name="description" content="〈내 세계의 한계〉 — 작품 소개, 키 이미지, 영상, 스토리 버전 아카이브, 창작 대화 데이터, 음악을 담는 이북 프로젝트.">
+<meta property="og:title" content="내 세계의 한계">
+<meta property="og:description" content="내 언어의 한계가 내 세계의 한계다 — 작품과 창작 과정 전체의 아카이브">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://the-limits-of-my-world.github.io/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪦</text></svg>">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  img, video { max-width: 100%; }
+
+  :root {
+    --void: #0A0A0C;
+    --panel: #141417;
+    --panel-edge: #26262B;
+    --bone: #E8E4D8;
+    --bone-dim: #8A867A;
+    --bone-faint: #55524A;
+    --led: #FF3D2E;
+    --serif: "AppleMyungjo", "Nanum Myeongjo", "Noto Serif KR", "Noto Serif CJK KR", serif;
+    --sans: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+    --mono: "SF Mono", "IBM Plex Mono", Menlo, Consolas, monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--void);
+    color: var(--bone);
+    font-family: var(--sans);
+    line-height: 1.75;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .frame {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+  }
+
+  ::selection { background: var(--led); color: var(--void); }
+
+  a { color: var(--bone); text-decoration: none; }
+
+  /* ── Hero: 묘비 ───────────────────────── */
+  .hero {
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 48px;
+    padding: 80px 0 60px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    color: var(--bone-dim);
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(44px, 9vw, 92px);
+    line-height: 1.12;
+    letter-spacing: 0.02em;
+    text-wrap: balance;
+    margin: 0;
+  }
+  .hero h1 .cursor {
+    display: inline-block;
+    width: 0.09em;
+    height: 0.85em;
+    background: var(--led);
+    margin-left: 0.12em;
+    vertical-align: baseline;
+    animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .epitaph {
+    border-left: 1px solid var(--panel-edge);
+    padding-left: 24px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--bone-dim);
+    line-height: 2;
+    animation: flicker 7s infinite;
+  }
+  .epitaph .quote {
+    font-family: var(--serif);
+    font-size: 19px;
+    color: var(--bone);
+    display: block;
+    margin-top: 6px;
+    letter-spacing: 0.01em;
+  }
+  @keyframes flicker {
+    0%, 91%, 94%, 100% { opacity: 1; }
+    92%, 95% { opacity: 0.25; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .epitaph, .hero h1 .cursor { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  .hero-note {
+    font-size: 14px;
+    color: var(--bone-dim);
+    max-width: 52ch;
+  }
+
+  /* ── Nav ─────────────────────────────── */
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    padding: 20px 0;
+    border-top: 1px solid var(--panel-edge);
+    border-bottom: 1px solid var(--panel-edge);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+  nav a { color: var(--bone-dim); transition: color 0.15s; }
+  nav a:hover, nav a:focus-visible { color: var(--led); }
+  nav a:focus-visible { outline: 1px solid var(--led); outline-offset: 4px; }
+
+  /* ── Sections ────────────────────────── */
+  section { padding-top: 96px; }
+
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 12px;
+  }
+  .sec-num {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--led);
+    letter-spacing: 0.1em;
+  }
+  .sec-head h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 30px;
+    letter-spacing: 0.03em;
+    margin: 0;
+  }
+  .sec-sub {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--bone-faint);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+
+  .prose { max-width: 62ch; display: flex; flex-direction: column; gap: 1.2em; }
+  .prose p { margin: 0; }
+  .prose .draft-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--bone-faint);
+    letter-spacing: 0.12em;
+  }
+
+  /* ── Empty slots (공통 placeholder) ──── */
+  .slot {
+    background: var(--panel);
+    border: 1px dashed var(--panel-edge);
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--bone-faint);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-align: center;
+    padding: 12px;
+  }
+  .slot small {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--bone-faint);
+    font-family: var(--sans);
+  }
+
+  /* ── 키 이미지 grid ──────────────────── */
+  .img-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .img-grid .slot { aspect-ratio: 4 / 3; }
+  .img-cap {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--bone-dim);
+    letter-spacing: 0.06em;
+    margin-top: 8px;
+  }
+  .img-cell { display: flex; flex-direction: column; }
+
+  /* ── 영상 ────────────────────────────── */
+  .video-list { display: flex; flex-direction: column; gap: 24px; }
+  .video-list .slot { aspect-ratio: 16 / 9; }
+
+  /* ── 아카이브 rows ───────────────────── */
+  .rows { display: flex; flex-direction: column; }
+  .row {
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    gap: 20px;
+    align-items: baseline;
+    padding: 16px 4px;
+    border-bottom: 1px solid var(--panel-edge);
+    transition: background 0.15s;
+  }
+  .row:first-child { border-top: 1px solid var(--panel-edge); }
+  .row:hover { background: var(--panel); }
+  .row-id {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--bone-dim);
+    font-variant-numeric: tabular-nums;
+  }
+  .row-title { font-size: 15px; }
+  .row-title small { display: block; font-size: 12.5px; color: var(--bone-dim); }
+  .chip {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border: 1px solid var(--panel-edge);
+    border-radius: 999px;
+    color: var(--bone-dim);
+    white-space: nowrap;
+  }
+  .chip.live { color: var(--led); border-color: var(--led); }
+
+  /* ── 대화 데이터 table ───────────────── */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  th {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bone-faint);
+    text-align: left;
+    padding: 10px 16px 10px 4px;
+    border-bottom: 1px solid var(--panel-edge);
+    font-weight: 400;
+  }
+  td {
+    padding: 14px 16px 14px 4px;
+    border-bottom: 1px solid var(--panel-edge);
+    font-size: 14px;
+    color: var(--bone-dim);
+    font-variant-numeric: tabular-nums;
+  }
+  td.mono { font-family: var(--mono); font-size: 12px; }
+  .table-note {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--bone-faint);
+    letter-spacing: 0.08em;
+    margin-top: 14px;
+  }
+
+  /* ── 음악 ────────────────────────────── */
+  .tracks { display: flex; flex-direction: column; gap: 12px; }
+  .track {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    gap: 18px;
+    align-items: center;
+    background: var(--panel);
+    border: 1px dashed var(--panel-edge);
+    border-radius: 2px;
+    padding: 16px 20px;
+  }
+  .track-play {
+    width: 34px; height: 34px;
+    border: 1px solid var(--panel-edge);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--bone-faint);
+    font-size: 11px;
+  }
+  .track-name { font-size: 14.5px; color: var(--bone-dim); }
+  .track-name small { display: block; font-family: var(--mono); font-size: 11px; color: var(--bone-faint); letter-spacing: 0.1em; }
+  .track-dur { font-family: var(--mono); font-size: 12px; color: var(--bone-faint); font-variant-numeric: tabular-nums; }
+
+  /* ── Footer ──────────────────────────── */
+  footer {
+    margin-top: 140px;
+    padding-top: 28px;
+    border-top: 1px solid var(--panel-edge);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--bone-faint);
+  }
+  footer .power { animation: flicker 9s infinite; }
+  @media (prefers-reduced-motion: reduce) { footer .power { animation: none; } }
+
+  @media (max-width: 560px) {
+    .row { grid-template-columns: 1fr; gap: 4px; }
+    .sec-head { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+
+  <header class="hero">
+    <p class="eyebrow">An E-Book Project · 영상 · 아카이브</p>
+    <h1>내 세계의<br>한계<span class="cursor" aria-hidden="true"></span></h1>
+    <div class="epitaph">
+      Ludwig Wittgenstein<br>
+      1889 – 1951
+      <span class="quote">“내 언어의 한계가 내 세계의 한계다”</span>
+    </div>
+    <p class="hero-note">
+      작품 소개, 키 이미지, 영상, 그리고 이 작품이 만들어지기까지의
+      모든 스토리 버전과 창작 대화 기록을 이곳에 아카이브합니다.
+    </p>
+  </header>
+
+  <nav aria-label="목차">
+    <a href="#about">1. 작품</a>
+    <a href="#images">2. 키 이미지</a>
+    <a href="#videos">3. 영상</a>
+    <a href="#story">4. 스토리 아카이브</a>
+    <a href="#dialog">5. 창작 대화 데이터</a>
+    <a href="#music">6. 음악</a>
+  </nav>
+
+  <section id="about">
+    <div class="sec-head"><span class="sec-num">1.</span><h2>작품 소개</h2></div>
+    <p class="sec-sub">About the Work</p>
+    <div class="prose">
+      <p class="draft-tag">[ 소개 초안 — 작가 텍스트로 교체 예정 ]</p>
+      <p>
+        황혼의 공동묘지, 타자음이 발소리처럼 울린다. 묘비명이 명멸하고,
+        관 속에서 비트겐슈타인의 시신이 일어선다. 떨어져 나가는 팔다리를
+        금속의 기계가 대체하고, 그는 초월적인 속도로 질주하기 시작한다 —
+        별들을 서버 팬처럼 돌리며, 우주의 에너지를 착취하며.
+      </p>
+      <p>
+        〈내 세계의 한계〉는 "내 언어의 한계가 내 세계의 한계다"라는
+        문장에서 출발해, 언어와 기계, 지성과 소모 사이의 경계를 쫓는
+        영상 작업이자, 그 창작 과정 전체를 함께 박제하는 이북 프로젝트입니다.
+      </p>
+    </div>
+  </section>
+
+  <section id="images">
+    <div class="sec-head"><span class="sec-num">2.</span><h2>키 이미지</h2></div>
+    <p class="sec-sub">Key Images</p>
+    <div class="img-grid">
+      <div class="img-cell">
+        <div class="slot">NO SIGNAL<small>이미지 준비 중</small></div>
+        <p class="img-cap">2.1 &nbsp;도입 — 공동묘지 · 황혼</p>
+      </div>
+      <div class="img-cell">
+        <div class="slot">NO SIGNAL<small>이미지 준비 중</small></div>
+        <p class="img-cap">2.2 &nbsp;각성 — 묘비명의 명멸</p>
+      </div>
+      <div class="img-cell">
+        <div class="slot">NO SIGNAL<small>이미지 준비 중</small></div>
+        <p class="img-cap">2.3 &nbsp;전개 — 기계 신체로의 변형</p>
+      </div>
+      <div class="img-cell">
+        <div class="slot">NO SIGNAL<small>이미지 준비 중</small></div>
+        <p class="img-cap">2.4 &nbsp;위기 — 우주 · 에너지 착취</p>
+      </div>
+      <div class="img-cell">
+        <div class="slot">NO SIGNAL<small>이미지 준비 중</small></div>
+        <p class="img-cap">2.5 &nbsp;위기 — 사막 · 과열의 추격</p>
+      </div>
+      <div class="img-cell">
+        <div class="slot">NO SIGNAL<small>이미지 준비 중</small></div>
+        <p class="img-cap">2.6 &nbsp;(추가 예정)</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <div class="sec-head"><span class="sec-num">3.</span><h2>영상</h2></div>
+    <p class="sec-sub">Videos</p>
+    <div class="video-list">
+      <div class="slot">STANDBY<small>영상 업로드 예정 — 본편 / 티저</small></div>
+      <div class="slot">STANDBY<small>영상 업로드 예정 — 메이킹 / 노드별 영상</small></div>
+    </div>
+  </section>
+
+  <section id="story">
+    <div class="sec-head"><span class="sec-num">4.</span><h2>스토리 아카이브</h2></div>
+    <p class="sec-sub">Story Versions — 변화한 모든 버전을 순서대로</p>
+    <div class="rows">
+      <div class="row">
+        <span class="row-id">v0 · ————</span>
+        <span class="row-title">최초 구상<small>업로드 예정</small></span>
+        <span class="chip">초고</span>
+      </div>
+      <div class="row">
+        <span class="row-id">v1 · ————</span>
+        <span class="row-title">노드 1<small>업로드 예정</small></span>
+        <span class="chip">초고</span>
+      </div>
+      <div class="row">
+        <span class="row-id">v2 · 2026-02-05</span>
+        <span class="row-title">노드 2 — 수정본<small>잠든 지성의 각성 → 가속화되는 파괴의 서핑</small></span>
+        <span class="chip live">수정본</span>
+      </div>
+      <div class="row">
+        <span class="row-id">v3 · ————</span>
+        <span class="row-title">(다음 버전)<small>업로드 예정</small></span>
+        <span class="chip">예정</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="dialog">
+    <div class="sec-head"><span class="sec-num">5.</span><h2>창작 대화 데이터</h2></div>
+    <p class="sec-sub">Creative Dialogue Archive — AI와 나눈 창작 과정의 기록</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>날짜</th><th>플랫폼</th><th>주제</th><th>상태</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono">conv5952</td>
+            <td>2026-02-05</td>
+            <td>—</td>
+            <td>노드 2 수정 논의</td>
+            <td class="mono">정리 중</td>
+          </tr>
+          <tr>
+            <td class="mono">————</td>
+            <td>————</td>
+            <td>—</td>
+            <td>(대화 기록 업로드 예정)</td>
+            <td class="mono">예정</td>
+          </tr>
+          <tr>
+            <td class="mono">————</td>
+            <td>————</td>
+            <td>—</td>
+            <td>(대화 기록 업로드 예정)</td>
+            <td class="mono">예정</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">* 창작에 사용된 모든 AI 대화가 정리되는 대로 이곳에 공개됩니다.</p>
+  </section>
+
+  <section id="music">
+    <div class="sec-head"><span class="sec-num">6.</span><h2>음악</h2></div>
+    <p class="sec-sub">Music</p>
+    <div class="tracks">
+      <div class="track">
+        <span class="track-play" aria-hidden="true">▶</span>
+        <span class="track-name">(트랙 제목)<small>업로드 예정</small></span>
+        <span class="track-dur">--:--</span>
+      </div>
+      <div class="track">
+        <span class="track-play" aria-hidden="true">▶</span>
+        <span class="track-name">(트랙 제목)<small>업로드 예정</small></span>
+        <span class="track-dur">--:--</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 내 세계의 한계 — E-Book Project</span>
+    <span class="power">Power Consumption: +1e12 kWh</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
