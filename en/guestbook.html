@@ -1,89 +1,90 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>방명록 — 내 세계의 한계</title>
-<meta name="description" content="〈내 세계의 한계〉 방명록 — 의견을 남겨주세요. 채택된 의견은 최종본에 반영되고 이름이 새겨집니다.">
+<title>Guestbook — The Limits of My World</title>
+<meta name="description" content="Leave your thoughts — adopted feedback is written into the living cut, credited by name.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪦</text></svg>">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
 <div class="frame">
 
   <header class="subnav">
-    <a class="home" href="index.html">내 세계의 한계</a>
+    <a class="home" href="index.html">The Limits of My World</a>
     <nav>
-      <a href="about.html">1. 작품</a>
-      <a href="images.html">2. 이미지</a>
-      <a href="videos.html">3. 영상</a>
-      <a href="story.html">4. 스토리</a>
-      <a href="dialog.html">5. 대화</a>
-      <a href="music.html">6. 음악</a>
-      <a class="here" href="guestbook.html">7. 방명록</a>
-      <a href="en/guestbook.html">EN</a>
+      <a  href="about.html">1. About</a>
+      <a  href="images.html">2. Images</a>
+      <a  href="videos.html">3. Videos</a>
+      <a  href="story.html">4. Story</a>
+      <a  href="dialog.html">5. Dialogue</a>
+      <a  href="music.html">6. Music</a>
+      <a class="here" href="guestbook.html">7. Guestbook</a>
+      <a href="../guestbook.html">한국어</a>
     </nav>
   </header>
 
   <main>
-    <div class="sec-head"><span class="sec-num">7.</span><h2>방명록</h2></div>
-    <p class="sec-sub">Guestbook — 당신의 언어가 이 세계의 한계를 넓힙니다</p>
+    <div class="sec-head"><span class="sec-num">7.</span><h2>Guestbook</h2></div>
+    <p class="sec-sub">Your language widens the limits of this world</p>
 
     <p class="gb-intro">
-      스토리와 영상에 대한 의견, 감상, 어떤 말이든 자유롭게 남겨주세요.
-      의견을 남겨주신 모든 분은 아래 <b>Thanks to</b>에 오르고,
-      채택된 의견은 최종본 판본에 반영되어 해당 노드에 이름이 정식으로 새겨집니다.
+      Thoughts on the story, the film, anything — leave them freely.
+      Everyone who leaves a name joins <b>Thanks to</b> below, and adopted
+      feedback is written into the living final cut with your name credited
+      on that node as a Contributing Writer.
     </p>
 
     <div class="gb-write">
-      <h3>의견 남기기</h3>
-      <p>이메일은 연락·확인용으로만 쓰이며 공개되지 않습니다. 공개 크레딧에는 아래에서 선택한 표기만 사용됩니다.</p>
+      <h3>Leave a note</h3>
+      <p>Your email is used only for contact and verification — it is never shown publicly. Only the credit style you choose below appears in public.</p>
       <form class="gb-form" id="gb-form">
         <div class="gb-row">
           <div class="gb-field">
-            <label for="gb-name">이름 / 닉네임 <span class="req">*</span></label>
+            <label for="gb-name">Name / nickname <span class="req">*</span></label>
             <input id="gb-name" name="name" type="text" required maxlength="40" autocomplete="nickname">
           </div>
           <div class="gb-field">
-            <label for="gb-email">이메일 <span class="req">*</span> <small>(비공개)</small></label>
+            <label for="gb-email">Email <span class="req">*</span> <small>(private)</small></label>
             <input id="gb-email" name="email" type="email" required autocomplete="email">
           </div>
         </div>
         <div class="gb-row">
           <div class="gb-field">
-            <label for="gb-insta">인스타그램 계정 <small>(선택)</small></label>
+            <label for="gb-insta">Instagram <small>(optional)</small></label>
             <input id="gb-insta" name="insta" type="text" placeholder="@youraccount" maxlength="40">
           </div>
           <div class="gb-field">
-            <label for="gb-node">관련 노드 <small>(선택)</small></label>
+            <label for="gb-node">Related node <small>(optional)</small></label>
             <select id="gb-node" name="node">
-              <option value="">전체 / 해당 없음</option>
-              <option value="NODE 1">NODE 1 — 각성</option>
-              <option value="NODE 2">NODE 2 — 소모</option>
-              <option value="NODE 3">NODE 3 — 귀환과 프롬프트</option>
-              <option value="NODE 4">NODE 4 — 서버랙이 된 도시</option>
-              <option value="NODE 5">NODE 5 — 쿠키</option>
+              <option value="">All / none</option>
+              <option value="NODE 1">NODE 1 — Awakening</option>
+              <option value="NODE 2">NODE 2 — Consumption</option>
+              <option value="NODE 3">NODE 3 — The Return and the Prompt</option>
+              <option value="NODE 4">NODE 4 — The City Become a Server Rack</option>
+              <option value="NODE 5">NODE 5 — Post-credits</option>
             </select>
           </div>
         </div>
         <div class="gb-field">
-          <label>크레딧 표기 선택 <span class="req">*</span> — Thanks to와 채택 크레딧에 이렇게 올라갑니다</label>
+          <label>Credit as <span class="req">*</span> — how your name appears in Thanks to and adopted credits</label>
           <div class="gb-credit-choice">
             <input type="radio" name="credit" id="cr-name" value="이름" checked>
-            <label for="cr-name">이름 / 닉네임</label>
+            <label for="cr-name">Name / nickname</label>
             <input type="radio" name="credit" id="cr-email" value="이메일 아이디">
-            <label for="cr-email">이메일 아이디 (@ 앞부분)</label>
+            <label for="cr-email">Email handle (before @)</label>
             <input type="radio" name="credit" id="cr-insta" value="인스타그램">
-            <label for="cr-insta">인스타그램 계정</label>
+            <label for="cr-insta">Instagram</label>
           </div>
         </div>
         <div class="gb-field">
-          <label for="gb-msg">의견 <span class="req">*</span></label>
+          <label for="gb-msg">Your note <span class="req">*</span></label>
           <textarea id="gb-msg" name="msg" required maxlength="2000"></textarea>
         </div>
         <div class="gb-submit-row">
-          <button class="gb-btn" id="gb-submit" type="submit">남기기</button>
+          <button class="gb-btn" id="gb-submit" type="submit">Leave note</button>
           <span class="gb-status" id="gb-status"></span>
         </div>
       </form>
@@ -91,33 +92,30 @@
 
     <div class="thanks">
       <h3>Thanks to</h3>
-      <p class="sub">의견을 남겨주신 모든 분들</p>
+      <p class="sub">Everyone who left a note</p>
       <div class="thanks-names" id="thanks-names">
-        <span class="empty">— 첫 이름을 기다리고 있습니다 —</span>
+        <span class="empty">— waiting for the first name —</span>
       </div>
     </div>
 
     <div class="thanks">
-      <h3>남겨진 말들</h3>
+      <h3>Words left behind</h3>
       <p class="sub">Entries</p>
       <div class="gb-entries" id="gb-entries"></div>
-      <p class="gb-empty" id="gb-empty">아직 방명록이 비어 있습니다. 첫 번째 말을 남겨주세요.</p>
+      <p class="gb-empty" id="gb-empty">The guestbook is still empty. Leave the first word.</p>
     </div>
 
-    <div class="pager">
-      <a href="music.html">← 6. 음악</a>
-      <a href="index.html">목차 →</a>
-    </div>
+    <div class="pager"><a href="music.html">← 6. Music</a><a href="index.html">Contents →</a></div>
   </main>
 
   <footer>
-    <span>© 내 세계의 한계 — 감독·각본 이시윤</span>
+    <span>© The Limits of My World — Directed &amp; Written by Siyun Lee</span>
     <span class="power">Power Consumption: +1e12 kWh</span>
   </footer>
 
 </div>
 
-<script src="gb-config.js"></script>
+<script src="../gb-config.js"></script>
 <script>
 (function () {
   function gbSubmit(form, node, btn, status) {
@@ -128,37 +126,33 @@
     body.append('insta', form.insta.value.trim());
     body.append('credit', form.credit.value);
     body.append('msg', form.msg.value.trim());
-    body.append('node', node);
+    body.append('node', form.node.value);
     btn.classList.add('disabled');
-    status.textContent = '전송 중…';
+    status.textContent = 'Sending…';
     fetch(GB_API, { method: 'POST', mode: 'no-cors', body: body })
       .then(function () {
         status.classList.add('ok');
-        status.textContent = '남겨졌습니다. 감사합니다.';
+        status.textContent = 'Left. Thank you — your name will join Thanks to shortly.';
         form.reset();
         btn.classList.remove('disabled');
       })
       .catch(function () {
-        status.textContent = '전송 실패 — 잠시 후 다시 시도해주세요.';
+        status.textContent = 'Failed to send — please try again shortly.';
         btn.classList.remove('disabled');
       });
   }
-
   var form = document.getElementById('gb-form');
   var status = document.getElementById('gb-status');
   var submitBtn = document.getElementById('gb-submit');
-
   if (!window.GB_API) {
     submitBtn.classList.add('disabled');
     submitBtn.setAttribute('aria-disabled', 'true');
-    status.textContent = '전송 준비 중 — 곧 열립니다';
+    status.textContent = 'Opening soon';
   }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     gbSubmit(form, form.node.value, submitBtn, status);
   });
-
-  // ── 표시: 시트 → 방명록 목록 + Thanks to ──
   if (!window.GB_API) return;
   fetch(GB_API).then(function (r) { return r.json(); }).then(function (d) {
     var rows = (d && d.entries) || [];
@@ -181,12 +175,11 @@
     });
     var tn = document.getElementById('thanks-names');
     tn.innerHTML = '';
-    names.sort(function (a, b) { return a.localeCompare(b, 'ko'); }).forEach(function (n) {
+    names.sort().forEach(function (n) {
       var s = document.createElement('span'); s.textContent = n; tn.appendChild(s);
     });
   }).catch(function () {});
 })();
 </script>
-
 </body>
 </html>
