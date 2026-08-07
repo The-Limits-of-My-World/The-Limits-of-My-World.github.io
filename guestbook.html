@@ -31,15 +31,61 @@
 
     <p class="gb-intro">
       스토리와 영상에 대한 의견, 감상, 어떤 말이든 자유롭게 남겨주세요.
-      이름을 남겨주신 모든 분은 아래 <b>Thanks to</b>에 오르고,
-      채택된 의견은 최종본 판본에 반영되어 해당 노드에 이름이 새겨집니다.
+      의견을 남겨주신 모든 분은 아래 <b>Thanks to</b>에 오르고,
+      채택된 의견은 최종본 판본에 반영되어 해당 노드에 이름이 정식으로 새겨집니다.
     </p>
 
     <div class="gb-write">
       <h3>의견 남기기</h3>
-      <p>이름(또는 남기고 싶은 표기)과 의견을 적어주세요. 특정 노드에 대한 의견이면 노드 번호를 함께 적어주시면 좋습니다.</p>
-      <!-- TODO: 구글 폼 연결 — 폼 URL이 정해지면 이 버튼에 배선 -->
-      <a class="gb-btn disabled" href="#" aria-disabled="true">작성 창 준비 중</a>
+      <p>이메일은 연락·확인용으로만 쓰이며 공개되지 않습니다. 공개 크레딧에는 아래에서 선택한 표기만 사용됩니다.</p>
+      <form class="gb-form" id="gb-form">
+        <div class="gb-row">
+          <div class="gb-field">
+            <label for="gb-name">이름 / 닉네임 <span class="req">*</span></label>
+            <input id="gb-name" name="name" type="text" required maxlength="40" autocomplete="nickname">
+          </div>
+          <div class="gb-field">
+            <label for="gb-email">이메일 <span class="req">*</span> <small>(비공개)</small></label>
+            <input id="gb-email" name="email" type="email" required autocomplete="email">
+          </div>
+        </div>
+        <div class="gb-row">
+          <div class="gb-field">
+            <label for="gb-insta">인스타그램 계정 <small>(선택)</small></label>
+            <input id="gb-insta" name="insta" type="text" placeholder="@youraccount" maxlength="40">
+          </div>
+          <div class="gb-field">
+            <label for="gb-node">관련 노드 <small>(선택)</small></label>
+            <select id="gb-node" name="node">
+              <option value="">전체 / 해당 없음</option>
+              <option value="NODE 1">NODE 1 — 각성</option>
+              <option value="NODE 2">NODE 2 — 소모</option>
+              <option value="NODE 3">NODE 3 — 귀환과 프롬프트</option>
+              <option value="NODE 4">NODE 4 — 서버랙이 된 도시</option>
+              <option value="NODE 5">NODE 5 — 쿠키</option>
+            </select>
+          </div>
+        </div>
+        <div class="gb-field">
+          <label>크레딧 표기 선택 <span class="req">*</span> — Thanks to와 채택 크레딧에 이렇게 올라갑니다</label>
+          <div class="gb-credit-choice">
+            <input type="radio" name="credit" id="cr-name" value="이름" checked>
+            <label for="cr-name">이름 / 닉네임</label>
+            <input type="radio" name="credit" id="cr-email" value="이메일 아이디">
+            <label for="cr-email">이메일 아이디 (@ 앞부분)</label>
+            <input type="radio" name="credit" id="cr-insta" value="인스타그램">
+            <label for="cr-insta">인스타그램 계정</label>
+          </div>
+        </div>
+        <div class="gb-field">
+          <label for="gb-msg">의견 <span class="req">*</span></label>
+          <textarea id="gb-msg" name="msg" required maxlength="2000"></textarea>
+        </div>
+        <div class="gb-submit-row">
+          <button class="gb-btn" id="gb-submit" type="submit">남기기</button>
+          <span class="gb-status" id="gb-status"></span>
+        </div>
+      </form>
     </div>
 
     <div class="thanks">
@@ -70,11 +116,101 @@
 
 </div>
 
-<!-- TODO: 공개 시트 CSV 연결 — 시트가 준비되면 이 스크립트가 방명록/Thanks to를 렌더링
 <script>
-  const SHEET_CSV = "여기에_공개_시트_CSV_URL";
+// ── 배선 설정: 구글 폼/시트가 준비되면 아래 두 값을 채운다 ──
+// GB_FORM: 구글 폼의 formResponse URL + entry ID 매핑
+// GB_CSV : "웹에 게시"된 공개표시용 탭(표기명·의견·노드만 담긴)의 CSV URL
+var GB_FORM = null; /* 예:
+var GB_FORM = {
+  action: "https://docs.google.com/forms/d/e/FORM_ID/formResponse",
+  fields: { name: "entry.111", email: "entry.222", insta: "entry.333",
+            credit: "entry.444", msg: "entry.555", node: "entry.666" }
+}; */
+var GB_CSV = null; // 예: "https://docs.google.com/spreadsheets/d/e/.../pub?gid=###&single=true&output=csv"
+
+(function () {
+  var form = document.getElementById('gb-form');
+  var status = document.getElementById('gb-status');
+  var submitBtn = document.getElementById('gb-submit');
+
+  if (!GB_FORM) {
+    submitBtn.classList.add('disabled');
+    submitBtn.setAttribute('aria-disabled', 'true');
+    status.textContent = '전송 준비 중 — 곧 열립니다';
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!GB_FORM) return;
+    var fd = new FormData();
+    fd.append(GB_FORM.fields.name, form.name.value.trim());
+    fd.append(GB_FORM.fields.email, form.email.value.trim());
+    fd.append(GB_FORM.fields.insta, form.insta.value.trim());
+    fd.append(GB_FORM.fields.credit, form.credit.value);
+    fd.append(GB_FORM.fields.msg, form.msg.value.trim());
+    fd.append(GB_FORM.fields.node, form.node.value);
+    submitBtn.classList.add('disabled');
+    status.textContent = '전송 중…';
+    fetch(GB_FORM.action, { method: 'POST', mode: 'no-cors', body: fd })
+      .then(function () {
+        status.classList.add('ok');
+        status.textContent = '남겨졌습니다. 감사합니다 — Thanks to에 곧 이름이 오릅니다.';
+        form.reset();
+        submitBtn.classList.remove('disabled');
+      })
+      .catch(function () {
+        status.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해주세요.';
+        submitBtn.classList.remove('disabled');
+      });
+  });
+
+  // ── 표시: 공개 CSV → 방명록 목록 + Thanks to ──
+  if (!GB_CSV) return;
+  function parseCSV(text) {
+    var rows = [], row = [], cur = '', inQ = false;
+    for (var i = 0; i < text.length; i++) {
+      var c = text[i];
+      if (inQ) {
+        if (c === '"') { if (text[i+1] === '"') { cur += '"'; i++; } else inQ = false; }
+        else cur += c;
+      } else if (c === '"') inQ = true;
+      else if (c === ',') { row.push(cur); cur = ''; }
+      else if (c === '\n' || c === '\r') {
+        if (cur !== '' || row.length) { row.push(cur); rows.push(row); row = []; cur = ''; }
+        if (c === '\r' && text[i+1] === '\n') i++;
+      } else cur += c;
+    }
+    if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
+    return rows;
+  }
+  fetch(GB_CSV).then(function (r) { return r.text(); }).then(function (text) {
+    var rows = parseCSV(text).slice(1).filter(function (r) { return r[1] && r[2]; });
+    if (!rows.length) return;
+    document.getElementById('gb-empty').style.display = 'none';
+    var entries = document.getElementById('gb-entries');
+    var names = [];
+    rows.reverse().forEach(function (r) {
+      var when = (r[0] || '').split(' ')[0];
+      var who = r[1], msg = r[2], node = r[3] || '';
+      if (names.indexOf(who) === -1) names.push(who);
+      var div = document.createElement('div');
+      div.className = 'gb-entry';
+      var whoEl = document.createElement('p'); whoEl.className = 'who';
+      whoEl.textContent = who;
+      if (node) { var t = document.createElement('span'); t.className = 'node-tag'; t.textContent = node; whoEl.appendChild(t); }
+      var w = document.createElement('span'); w.className = 'when'; w.textContent = when; whoEl.appendChild(w);
+      var msgEl = document.createElement('p'); msgEl.className = 'msg'; msgEl.textContent = msg;
+      div.appendChild(whoEl); div.appendChild(msgEl);
+      entries.appendChild(div);
+    });
+    var tn = document.getElementById('thanks-names');
+    tn.innerHTML = '';
+    names.sort(function (a, b) { return a.localeCompare(b, 'ko'); }).forEach(function (n) {
+      var s = document.createElement('span'); s.textContent = n; tn.appendChild(s);
+    });
+  }).catch(function () {});
+})();
 </script>
--->
 
 </body>
 </html>

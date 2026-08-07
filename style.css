@@ -479,3 +479,61 @@ details.archive-fold[open] > summary { border-bottom: none; }
   details.node summary { grid-template-columns: 1fr; gap: 4px; }
   .node-media { grid-template-columns: 1fr; }
 }
+
+/* ── 방명록 인라인 폼 ─────────────────── */
+.gb-form { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
+.gb-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 560px) { .gb-row { grid-template-columns: 1fr; } }
+.gb-field { display: flex; flex-direction: column; gap: 6px; }
+.gb-field label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+.gb-field label .req { color: var(--led); }
+.gb-field input, .gb-field textarea, .gb-field select {
+  background: var(--void);
+  border: 1px solid var(--panel-edge);
+  border-radius: 2px;
+  color: var(--bone);
+  font-family: var(--sans);
+  font-size: 14.5px;
+  padding: 11px 12px;
+  line-height: 1.6;
+}
+.gb-field textarea { min-height: 120px; resize: vertical; }
+.gb-field input:focus, .gb-field textarea:focus, .gb-field select:focus {
+  outline: none;
+  border-color: var(--led);
+}
+.gb-credit-choice { display: flex; flex-wrap: wrap; gap: 8px; }
+.gb-credit-choice input { position: absolute; opacity: 0; pointer-events: none; }
+.gb-credit-choice label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 8px 14px;
+  border: 1px solid var(--panel-edge);
+  border-radius: 999px;
+  color: var(--bone-dim);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.gb-credit-choice input:checked + label { color: var(--led); border-color: var(--led); }
+.gb-credit-choice input:focus-visible + label { outline: 1px solid var(--led); outline-offset: 2px; }
+.gb-submit-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.gb-status { font-family: var(--mono); font-size: 11px; color: var(--bone-faint); letter-spacing: 0.08em; }
+.gb-status.ok { color: var(--led); }
+.gb-entry .msg { white-space: pre-wrap; }
+.gb-entry .node-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--bone-faint);
+  border: 1px solid var(--panel-edge);
+  border-radius: 999px;
+  padding: 1px 8px;
+  margin-left: 8px;
+}
