@@ -557,3 +557,48 @@ details.memo-fold > summary::-webkit-details-marker { display: none; }
 details.memo-fold > summary:hover { color: var(--led); }
 details.memo-fold .gb-form { padding: 4px 16px 18px; }
 details.memo-fold .gb-field textarea { min-height: 80px; }
+
+/* ── 형광펜 선택-메모 연결 ────────────── */
+mark.hl {
+  background: rgba(255, 61, 46, 0.28);
+  color: var(--bone);
+  padding: 0 1px;
+}
+.sel-memo-btn {
+  position: absolute;
+  z-index: 50;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 8px 14px;
+  background: var(--void);
+  border: 1px solid var(--led);
+  color: var(--led);
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+.sel-memo-btn:hover { background: var(--led); color: var(--void); }
+.gb-quote {
+  border-left: 2px solid var(--led);
+  background: var(--void);
+  font-size: 13px;
+  color: var(--bone-dim);
+  padding: 8px 12px;
+  margin-bottom: 4px;
+}
+.gb-quote .q-label { font-family: var(--mono); font-size: 10px; color: var(--led); letter-spacing: 0.12em; display: block; margin-bottom: 2px; }
+
+/* ── 노드 참여 수 배지 ────────────────── */
+.node-count {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--led);
+  border: 1px solid var(--led);
+  border-radius: 999px;
+  padding: 2px 9px;
+  margin-left: 10px;
+  white-space: nowrap;
+  vertical-align: 2px;
+}

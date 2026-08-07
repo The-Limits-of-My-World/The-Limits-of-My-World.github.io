@@ -228,5 +228,101 @@
 })();
 </script>
 
+<script>
+(function () {
+  // ── ① 노드별 피드백 참여 수 배지 ──
+  if (window.GB_API) {
+    fetch(GB_API).then(function (r) { return r.json(); }).then(function (d) {
+      var byNode = {};
+      ((d && d.entries) || []).forEach(function (e) {
+        if (!e.node) return;
+        byNode[e.node] = byNode[e.node] || [];
+        if (byNode[e.node].indexOf(e.who) === -1) byNode[e.node].push(e.who);
+      });
+      document.querySelectorAll('details.node').forEach(function (node) {
+        var fold = node.querySelector('.memo-fold');
+        var name = fold && fold.getAttribute('data-node');
+        var n = (byNode[name] || []).length;
+        if (!n) return;
+        var title = node.querySelector('.node-title');
+        var badge = document.createElement('span');
+        badge.className = 'node-count';
+        badge.textContent = '피드백 ' + n + '명 참여';
+        title.appendChild(badge);
+      });
+    }).catch(function () {});
+  }
+
+  // ── ② 형광펜: 본문 드래그 → 메모 연결 ──
+  var btn = document.createElement('button');
+  btn.className = 'sel-memo-btn';
+  btn.textContent = '✎ 이 부분에 메모';
+  btn.style.display = 'none';
+  document.body.appendChild(btn);
+  var curRange = null, curBody = null;
+
+  function hideBtn() { btn.style.display = 'none'; curRange = null; curBody = null; }
+
+  function onSelEnd() {
+    setTimeout(function () {
+      var sel = window.getSelection();
+      if (!sel || sel.isCollapsed || !sel.toString().trim()) { hideBtn(); return; }
+      var range = sel.getRangeAt(0);
+      var el = range.commonAncestorContainer;
+      if (el.nodeType === 3) el = el.parentElement;
+      var body = el.closest ? el.closest('.node-body') : null;
+      if (!body || el.closest('.memo-fold')) { hideBtn(); return; }
+      curRange = range.cloneRange();
+      curBody = body;
+      var rect = range.getBoundingClientRect();
+      btn.style.display = 'block';
+      btn.style.left = Math.max(12, window.scrollX + rect.left + rect.width / 2 - btn.offsetWidth / 2) + 'px';
+      btn.style.top = (window.scrollY + rect.bottom + 10) + 'px';
+    }, 10);
+  }
+  document.addEventListener('mouseup', onSelEnd);
+  document.addEventListener('touchend', onSelEnd);
+  document.addEventListener('mousedown', function (e) { if (e.target !== btn) hideBtn(); });
+
+  btn.addEventListener('click', function () {
+    if (!curRange || !curBody) return;
+    var quote = curRange.toString().trim().slice(0, 300);
+    // 형광펜 표시 (여러 요소에 걸친 선택은 시각 표시 생략)
+    try {
+      var mark = document.createElement('mark');
+      mark.className = 'hl';
+      curRange.surroundContents(mark);
+    } catch (err) {}
+    var fold = curBody.querySelector('.memo-fold');
+    if (fold) {
+      fold.open = true;
+      var form = fold.querySelector('form');
+      var old = form.querySelector('.gb-quote');
+      if (old) old.remove();
+      var q = document.createElement('div');
+      q.className = 'gb-quote';
+      var lb = document.createElement('span'); lb.className = 'q-label'; lb.textContent = '이 부분에 대한 메모';
+      q.appendChild(lb);
+      q.appendChild(document.createTextNode('“' + quote + '”'));
+      form.insertBefore(q, form.firstChild);
+      form.dataset.quote = quote;
+      var ta = form.querySelector('textarea');
+      fold.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function () { ta.focus(); }, 300);
+    }
+    window.getSelection().removeAllRanges();
+    hideBtn();
+  });
+
+  // 전송 시 인용문을 메모 앞에 붙이기
+  document.querySelectorAll('details.memo-fold form').forEach(function (form) {
+    form.addEventListener('submit', function () {
+      if (form.dataset.quote && form.msg.value.indexOf('「') !== 0) {
+        form.msg.value = '「' + form.dataset.quote + '」\n' + form.msg.value;
+      }
+    }, true);
+  });
+})();
+</script>
 </body>
 </html>
