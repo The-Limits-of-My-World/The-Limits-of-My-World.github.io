@@ -116,18 +116,8 @@
 
 </div>
 
+<script src="gb-config.js"></script>
 <script>
-// ── 배선 설정: 구글 폼/시트가 준비되면 아래 두 값을 채운다 ──
-// GB_FORM: 구글 폼의 formResponse URL + entry ID 매핑
-// GB_CSV : "웹에 게시"된 공개표시용 탭(표기명·의견·노드만 담긴)의 CSV URL
-var GB_FORM = null; /* 예:
-var GB_FORM = {
-  action: "https://docs.google.com/forms/d/e/FORM_ID/formResponse",
-  fields: { name: "entry.111", email: "entry.222", insta: "entry.333",
-            credit: "entry.444", msg: "entry.555", node: "entry.666" }
-}; */
-var GB_CSV = null; // 예: "https://docs.google.com/spreadsheets/d/e/.../pub?gid=###&single=true&output=csv"
-
 (function () {
   var form = document.getElementById('gb-form');
   var status = document.getElementById('gb-status');

@@ -46,7 +46,9 @@
           <div class="slot">VIDEO<small>이 노드의 영상</small></div>
         </div>
         <p class="node-credit"><b>반영된 의견</b> — 아직 없음. 채택된 의견은 판본에 반영되고, 이곳에 이름이 새겨집니다.</p>
-        <p class="node-feedback"><a href="guestbook.html">→ 이 노드에 의견 남기기</a></p>
+        <details class="memo-fold" data-node="NODE 1">
+          <summary>✎ 여기에 바로 메모 남기기 — NODE 1</summary>
+        </details>
       </div>
     </details>
 
@@ -63,7 +65,9 @@
           <div class="slot">VIDEO<small>이 노드의 영상</small></div>
         </div>
         <p class="node-credit"><b>반영된 의견</b> — 아직 없음. 채택된 의견은 판본에 반영되고, 이곳에 이름이 새겨집니다.</p>
-        <p class="node-feedback"><a href="guestbook.html">→ 이 노드에 의견 남기기</a></p>
+        <details class="memo-fold" data-node="NODE 2">
+          <summary>✎ 여기에 바로 메모 남기기 — NODE 2</summary>
+        </details>
       </div>
     </details>
 
@@ -80,7 +84,9 @@
           <div class="slot">VIDEO<small>이 노드의 영상</small></div>
         </div>
         <p class="node-credit"><b>반영된 의견</b> — 아직 없음. 채택된 의견은 판본에 반영되고, 이곳에 이름이 새겨집니다.</p>
-        <p class="node-feedback"><a href="guestbook.html">→ 이 노드에 의견 남기기</a></p>
+        <details class="memo-fold" data-node="NODE 3">
+          <summary>✎ 여기에 바로 메모 남기기 — NODE 3</summary>
+        </details>
       </div>
     </details>
 
@@ -97,7 +103,9 @@
           <div class="slot">VIDEO<small>이 노드의 영상</small></div>
         </div>
         <p class="node-credit"><b>반영된 의견</b> — 아직 없음. 채택된 의견은 판본에 반영되고, 이곳에 이름이 새겨집니다.</p>
-        <p class="node-feedback"><a href="guestbook.html">→ 이 노드에 의견 남기기</a></p>
+        <details class="memo-fold" data-node="NODE 4">
+          <summary>✎ 여기에 바로 메모 남기기 — NODE 4</summary>
+        </details>
       </div>
     </details>
 
@@ -114,7 +122,9 @@
           <div class="slot">VIDEO<small>이 노드의 영상</small></div>
         </div>
         <p class="node-credit"><b>반영된 의견</b> — 아직 없음. 채택된 의견은 판본에 반영되고, 이곳에 이름이 새겨집니다.</p>
-        <p class="node-feedback"><a href="guestbook.html">→ 이 노드에 의견 남기기</a></p>
+        <details class="memo-fold" data-node="NODE 5">
+          <summary>✎ 여기에 바로 메모 남기기 — NODE 5</summary>
+        </details>
       </div>
     </details>
 
@@ -157,6 +167,62 @@
   </footer>
 
 </div>
+
+
+<script src="gb-config.js"></script>
+<script>
+(function () {
+  var TPL = '<form class="gb-form">' +
+    '<div class="gb-field"><label>메모 <span class="req">*</span></label><textarea name="msg" required maxlength="2000"></textarea></div>' +
+    '<div class="gb-row">' +
+    '<div class="gb-field"><label>이름 / 닉네임 <span class="req">*</span></label><input name="name" type="text" required maxlength="40"></div>' +
+    '<div class="gb-field"><label>이메일 <span class="req">*</span> <small>(비공개)</small></label><input name="email" type="email" required></div>' +
+    '</div>' +
+    '<div class="gb-row">' +
+    '<div class="gb-field"><label>인스타그램 <small>(선택)</small></label><input name="insta" type="text" placeholder="@youraccount" maxlength="40"></div>' +
+    '<div class="gb-field"><label>크레딧 표기 <span class="req">*</span></label><select name="credit">' +
+    '<option value="이름">이름 / 닉네임</option><option value="이메일 아이디">이메일 아이디 (@ 앞부분)</option><option value="인스타그램">인스타그램</option>' +
+    '</select></div>' +
+    '</div>' +
+    '<div class="gb-submit-row"><button class="gb-btn" type="submit">남기기</button><span class="gb-status"></span></div>' +
+    '</form>';
+  document.querySelectorAll('details.memo-fold').forEach(function (fold) {
+    fold.insertAdjacentHTML('beforeend', TPL);
+    var form = fold.querySelector('form');
+    var status = fold.querySelector('.gb-status');
+    var btn = fold.querySelector('button');
+    if (!window.GB_FORM) {
+      btn.classList.add('disabled');
+      btn.setAttribute('aria-disabled', 'true');
+      status.textContent = '전송 준비 중 — 곧 열립니다';
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!window.GB_FORM) return;
+      var fd = new FormData();
+      fd.append(GB_FORM.fields.name, form.name.value.trim());
+      fd.append(GB_FORM.fields.email, form.email.value.trim());
+      fd.append(GB_FORM.fields.insta, form.insta.value.trim());
+      fd.append(GB_FORM.fields.credit, form.credit.value);
+      fd.append(GB_FORM.fields.msg, form.msg.value.trim());
+      fd.append(GB_FORM.fields.node, fold.getAttribute('data-node'));
+      btn.classList.add('disabled');
+      status.textContent = '전송 중…';
+      fetch(GB_FORM.action, { method: 'POST', mode: 'no-cors', body: fd })
+        .then(function () {
+          status.classList.add('ok');
+          status.textContent = '남겨졌습니다. 감사합니다.';
+          form.reset();
+          btn.classList.remove('disabled');
+        })
+        .catch(function () {
+          status.textContent = '전송 실패 — 잠시 후 다시 시도해주세요.';
+          btn.classList.remove('disabled');
+        });
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
