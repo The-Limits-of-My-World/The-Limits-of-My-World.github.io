@@ -739,3 +739,27 @@ mark.hl {
   max-width: none !important;
 }
 .recruit-offer small { font-family: var(--mono); font-size: 11px; color: var(--bone-dim); letter-spacing: 0.06em; }
+
+/* ── Contact ──────────────────────────── */
+.contact {
+  margin-top: 90px;
+  padding-top: 28px;
+  border-top: 1px solid var(--panel-edge);
+}
+.contact .c-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  color: var(--led);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+.contact .c-main { font-family: var(--serif); font-size: 19px; margin: 0 0 6px; }
+.contact .c-main a { border-bottom: 1px solid var(--panel-edge); }
+.contact .c-main a:hover { color: var(--led); border-color: var(--led); }
+.contact .c-sub { font-size: 13.5px; color: var(--bone-dim); margin: 0; }
+.contact .c-sub a { color: var(--bone-dim); border-bottom: 1px solid var(--panel-edge); }
+.contact .c-sub a:hover { color: var(--led); border-color: var(--led); }
+footer a { color: var(--bone-faint); }
+footer a:hover { color: var(--led); }
