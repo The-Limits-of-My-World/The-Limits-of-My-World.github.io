@@ -725,3 +725,17 @@ mark.hl {
   max-width: 440px;
   margin: 56px auto;
 }
+
+/* ── 아트 디렉터 모집 ─────────────────── */
+.recruit { border: 1px solid var(--led); margin-bottom: 56px; }
+.recruit h3 { color: var(--led); }
+.recruit-offer {
+  font-family: var(--serif);
+  font-size: 19px !important;
+  color: var(--bone) !important;
+  border-top: 1px dashed var(--panel-edge);
+  padding-top: 16px;
+  margin-top: 4px !important;
+  max-width: none !important;
+}
+.recruit-offer small { font-family: var(--mono); font-size: 11px; color: var(--bone-dim); letter-spacing: 0.06em; }
