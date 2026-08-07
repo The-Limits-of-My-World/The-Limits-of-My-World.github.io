@@ -40,14 +40,70 @@
       <div class="img-cell"><div class="slot">NO SIGNAL<small>image coming</small></div><p class="img-cap">2.4 &nbsp;Space — extracting the stars</p></div>
       <div class="img-cell"><div class="slot">NO SIGNAL<small>image coming</small></div><p class="img-cap">2.5 &nbsp;Desert — the pursuit of heat</p></div>
     </div>
+
+    <div class="gb-write">
+      <h3>Leave image feedback</h3>
+      <p>Reference suggestions, directing and design feedback are all welcome. You can attach a reference image (≤5MB) or a link.
+      Attached images and links are <b>private by default</b> and shown on the site only if you allow it. Email is always private.</p>
+      <form class="gb-form fb-form" data-node="IMAGES" data-lang="en">
+        <div class="gb-row">
+          <div class="gb-field">
+            <label>Type of feedback <span class="req">*</span></label>
+            <select name="category">
+              <option value="레퍼런스 추천">Reference suggestion</option>
+              <option value="연출 피드백">Directing feedback</option>
+              <option value="디자인 피드백">Design feedback</option>
+              <option value="기타">Other</option>
+            </select>
+          </div>
+          <div class="gb-field">
+            <label>Reference link <small>(optional — video/reference URL)</small></label>
+            <input name="link" type="url" placeholder="https://…">
+          </div>
+        </div>
+        <div class="gb-field">
+          <label>Your feedback / proposal <span class="req">*</span></label>
+          <textarea name="msg" required maxlength="2000"></textarea>
+        </div>
+        <div class="gb-field">
+          <label>Attach image <small>(optional, ≤5MB)</small></label>
+          <input type="file" accept="image/*">
+        </div>
+        <div class="gb-field">
+          <label>Visibility of attachment/link <span class="req">*</span></label>
+          <div class="gb-visible-choice">
+            <input type="radio" name="visible" id="IMAGES-en-v-no" value="비공개" checked>
+            <label for="IMAGES-en-v-no">Private (default)</label>
+            <input type="radio" name="visible" id="IMAGES-en-v-yes" value="공개">
+            <label for="IMAGES-en-v-yes">OK to publish</label>
+          </div>
+          <p class="fb-note">* Private by default to protect personal IP. Shown on the site only if you choose to publish.</p>
+        </div>
+        <div class="gb-row">
+          <div class="gb-field"><label>Name / nickname <span class="req">*</span></label><input name="name" type="text" required maxlength="40"></div>
+          <div class="gb-field"><label>Email <span class="req">*</span> <small>(private)</small></label><input name="email" type="email" required></div>
+        </div>
+        <div class="gb-row">
+          <div class="gb-field"><label>Instagram <small>(optional)</small></label><input name="insta" type="text" placeholder="@youraccount" maxlength="40"></div>
+          <div class="gb-field"><label>Credit as <span class="req">*</span></label><select name="credit">
+            <option value="이름">Name / nickname</option><option value="이메일 아이디">Email handle</option><option value="인스타그램">Instagram</option>
+          </select></div>
+        </div>
+        <div class="gb-submit-row"><button class="gb-btn" type="submit">Send</button><span class="gb-status"></span></div>
+      </form>
+    </div>
+
     <div class="pager"><a href="about.html">← 1. About</a><a href="videos.html">3. Videos →</a></div>
   </main>
 
   <footer>
-    <span>© The Limits of My World — Directed &amp; Written by Siyun Lee</span>
+    <span>© The Limits of My World — Directed &amp; Written by SIYUN LEE</span>
     <span class="power">Power Consumption: +1e12 kWh</span>
   </footer>
 
 </div>
+
+<script src="../gb-config.js"></script>
+<script src="../gb-feedback.js"></script>
 </body>
 </html>
