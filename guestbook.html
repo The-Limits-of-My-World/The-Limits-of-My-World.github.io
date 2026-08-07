@@ -119,77 +119,62 @@
 <script src="gb-config.js"></script>
 <script>
 (function () {
+  function gbSubmit(form, node, btn, status) {
+    if (!window.GB_API) return;
+    var body = new URLSearchParams();
+    body.append('name', form.name.value.trim());
+    body.append('email', form.email.value.trim());
+    body.append('insta', form.insta.value.trim());
+    body.append('credit', form.credit.value);
+    body.append('msg', form.msg.value.trim());
+    body.append('node', node);
+    btn.classList.add('disabled');
+    status.textContent = '전송 중…';
+    fetch(GB_API, { method: 'POST', mode: 'no-cors', body: body })
+      .then(function () {
+        status.classList.add('ok');
+        status.textContent = '남겨졌습니다. 감사합니다.';
+        form.reset();
+        btn.classList.remove('disabled');
+      })
+      .catch(function () {
+        status.textContent = '전송 실패 — 잠시 후 다시 시도해주세요.';
+        btn.classList.remove('disabled');
+      });
+  }
+
   var form = document.getElementById('gb-form');
   var status = document.getElementById('gb-status');
   var submitBtn = document.getElementById('gb-submit');
 
-  if (!GB_FORM) {
+  if (!window.GB_API) {
     submitBtn.classList.add('disabled');
     submitBtn.setAttribute('aria-disabled', 'true');
     status.textContent = '전송 준비 중 — 곧 열립니다';
   }
-
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (!GB_FORM) return;
-    var fd = new FormData();
-    fd.append(GB_FORM.fields.name, form.name.value.trim());
-    fd.append(GB_FORM.fields.email, form.email.value.trim());
-    fd.append(GB_FORM.fields.insta, form.insta.value.trim());
-    fd.append(GB_FORM.fields.credit, form.credit.value);
-    fd.append(GB_FORM.fields.msg, form.msg.value.trim());
-    fd.append(GB_FORM.fields.node, form.node.value);
-    submitBtn.classList.add('disabled');
-    status.textContent = '전송 중…';
-    fetch(GB_FORM.action, { method: 'POST', mode: 'no-cors', body: fd })
-      .then(function () {
-        status.classList.add('ok');
-        status.textContent = '남겨졌습니다. 감사합니다 — Thanks to에 곧 이름이 오릅니다.';
-        form.reset();
-        submitBtn.classList.remove('disabled');
-      })
-      .catch(function () {
-        status.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해주세요.';
-        submitBtn.classList.remove('disabled');
-      });
+    gbSubmit(form, form.node.value, submitBtn, status);
   });
 
-  // ── 표시: 공개 CSV → 방명록 목록 + Thanks to ──
-  if (!GB_CSV) return;
-  function parseCSV(text) {
-    var rows = [], row = [], cur = '', inQ = false;
-    for (var i = 0; i < text.length; i++) {
-      var c = text[i];
-      if (inQ) {
-        if (c === '"') { if (text[i+1] === '"') { cur += '"'; i++; } else inQ = false; }
-        else cur += c;
-      } else if (c === '"') inQ = true;
-      else if (c === ',') { row.push(cur); cur = ''; }
-      else if (c === '\n' || c === '\r') {
-        if (cur !== '' || row.length) { row.push(cur); rows.push(row); row = []; cur = ''; }
-        if (c === '\r' && text[i+1] === '\n') i++;
-      } else cur += c;
-    }
-    if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
-    return rows;
-  }
-  fetch(GB_CSV).then(function (r) { return r.text(); }).then(function (text) {
-    var rows = parseCSV(text).slice(1).filter(function (r) { return r[1] && r[2]; });
+  // ── 표시: 시트 → 방명록 목록 + Thanks to ──
+  if (!window.GB_API) return;
+  fetch(GB_API).then(function (r) { return r.json(); }).then(function (d) {
+    var rows = (d && d.entries) || [];
     if (!rows.length) return;
     document.getElementById('gb-empty').style.display = 'none';
     var entries = document.getElementById('gb-entries');
     var names = [];
-    rows.reverse().forEach(function (r) {
-      var when = (r[0] || '').split(' ')[0];
-      var who = r[1], msg = r[2], node = r[3] || '';
-      if (names.indexOf(who) === -1) names.push(who);
+    rows.forEach(function (r) {
+      if (!r.who || !r.msg) return;
+      if (names.indexOf(r.who) === -1) names.push(r.who);
       var div = document.createElement('div');
       div.className = 'gb-entry';
       var whoEl = document.createElement('p'); whoEl.className = 'who';
-      whoEl.textContent = who;
-      if (node) { var t = document.createElement('span'); t.className = 'node-tag'; t.textContent = node; whoEl.appendChild(t); }
-      var w = document.createElement('span'); w.className = 'when'; w.textContent = when; whoEl.appendChild(w);
-      var msgEl = document.createElement('p'); msgEl.className = 'msg'; msgEl.textContent = msg;
+      whoEl.textContent = r.who;
+      if (r.node) { var t = document.createElement('span'); t.className = 'node-tag'; t.textContent = r.node; whoEl.appendChild(t); }
+      var w = document.createElement('span'); w.className = 'when'; w.textContent = r.t || ''; whoEl.appendChild(w);
+      var msgEl = document.createElement('p'); msgEl.className = 'msg'; msgEl.textContent = r.msg;
       div.appendChild(whoEl); div.appendChild(msgEl);
       entries.appendChild(div);
     });

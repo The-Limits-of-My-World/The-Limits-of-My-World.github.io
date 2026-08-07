@@ -172,6 +172,30 @@
 <script src="gb-config.js"></script>
 <script>
 (function () {
+  function gbSubmit(form, node, btn, status) {
+    if (!window.GB_API) return;
+    var body = new URLSearchParams();
+    body.append('name', form.name.value.trim());
+    body.append('email', form.email.value.trim());
+    body.append('insta', form.insta.value.trim());
+    body.append('credit', form.credit.value);
+    body.append('msg', form.msg.value.trim());
+    body.append('node', node);
+    btn.classList.add('disabled');
+    status.textContent = '전송 중…';
+    fetch(GB_API, { method: 'POST', mode: 'no-cors', body: body })
+      .then(function () {
+        status.classList.add('ok');
+        status.textContent = '남겨졌습니다. 감사합니다.';
+        form.reset();
+        btn.classList.remove('disabled');
+      })
+      .catch(function () {
+        status.textContent = '전송 실패 — 잠시 후 다시 시도해주세요.';
+        btn.classList.remove('disabled');
+      });
+  }
+
   var TPL = '<form class="gb-form">' +
     '<div class="gb-field"><label>메모 <span class="req">*</span></label><textarea name="msg" required maxlength="2000"></textarea></div>' +
     '<div class="gb-row">' +
@@ -191,34 +215,14 @@
     var form = fold.querySelector('form');
     var status = fold.querySelector('.gb-status');
     var btn = fold.querySelector('button');
-    if (!window.GB_FORM) {
+    if (!window.GB_API) {
       btn.classList.add('disabled');
       btn.setAttribute('aria-disabled', 'true');
       status.textContent = '전송 준비 중 — 곧 열립니다';
     }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!window.GB_FORM) return;
-      var fd = new FormData();
-      fd.append(GB_FORM.fields.name, form.name.value.trim());
-      fd.append(GB_FORM.fields.email, form.email.value.trim());
-      fd.append(GB_FORM.fields.insta, form.insta.value.trim());
-      fd.append(GB_FORM.fields.credit, form.credit.value);
-      fd.append(GB_FORM.fields.msg, form.msg.value.trim());
-      fd.append(GB_FORM.fields.node, fold.getAttribute('data-node'));
-      btn.classList.add('disabled');
-      status.textContent = '전송 중…';
-      fetch(GB_FORM.action, { method: 'POST', mode: 'no-cors', body: fd })
-        .then(function () {
-          status.classList.add('ok');
-          status.textContent = '남겨졌습니다. 감사합니다.';
-          form.reset();
-          btn.classList.remove('disabled');
-        })
-        .catch(function () {
-          status.textContent = '전송 실패 — 잠시 후 다시 시도해주세요.';
-          btn.classList.remove('disabled');
-        });
+      gbSubmit(form, fold.getAttribute('data-node'), btn, status);
     });
   });
 })();
