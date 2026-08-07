@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>방명록 — 내 세계의 한계</title>
+<meta name="description" content="〈내 세계의 한계〉 방명록 — 의견을 남겨주세요. 채택된 의견은 최종본에 반영되고 이름이 새겨집니다.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪦</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="frame">
+
+  <header class="subnav">
+    <a class="home" href="index.html">내 세계의 한계</a>
+    <nav>
+      <a href="about.html">1. 작품</a>
+      <a href="images.html">2. 이미지</a>
+      <a href="videos.html">3. 영상</a>
+      <a href="story.html">4. 스토리</a>
+      <a href="dialog.html">5. 대화</a>
+      <a href="music.html">6. 음악</a>
+      <a class="here" href="guestbook.html">7. 방명록</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="sec-head"><span class="sec-num">7.</span><h2>방명록</h2></div>
+    <p class="sec-sub">Guestbook — 당신의 언어가 이 세계의 한계를 넓힙니다</p>
+
+    <p class="gb-intro">
+      스토리와 영상에 대한 의견, 감상, 어떤 말이든 자유롭게 남겨주세요.
+      이름을 남겨주신 모든 분은 아래 <b>Thanks to</b>에 오르고,
+      채택된 의견은 최종본 판본에 반영되어 해당 노드에 이름이 새겨집니다.
+    </p>
+
+    <div class="gb-write">
+      <h3>의견 남기기</h3>
+      <p>이름(또는 남기고 싶은 표기)과 의견을 적어주세요. 특정 노드에 대한 의견이면 노드 번호를 함께 적어주시면 좋습니다.</p>
+      <!-- TODO: 구글 폼 연결 — 폼 URL이 정해지면 이 버튼에 배선 -->
+      <a class="gb-btn disabled" href="#" aria-disabled="true">작성 창 준비 중</a>
+    </div>
+
+    <div class="thanks">
+      <h3>Thanks to</h3>
+      <p class="sub">의견을 남겨주신 모든 분들</p>
+      <div class="thanks-names" id="thanks-names">
+        <span class="empty">— 첫 이름을 기다리고 있습니다 —</span>
+      </div>
+    </div>
+
+    <div class="thanks">
+      <h3>남겨진 말들</h3>
+      <p class="sub">Entries</p>
+      <div class="gb-entries" id="gb-entries"></div>
+      <p class="gb-empty" id="gb-empty">아직 방명록이 비어 있습니다. 첫 번째 말을 남겨주세요.</p>
+    </div>
+
+    <div class="pager">
+      <a href="music.html">← 6. 음악</a>
+      <a href="index.html">목차 →</a>
+    </div>
+  </main>
+
+  <footer>
+    <span>© 내 세계의 한계 — 감독·각본 이시윤</span>
+    <span class="power">Power Consumption: +1e12 kWh</span>
+  </footer>
+
+</div>
+
+<!-- TODO: 공개 시트 CSV 연결 — 시트가 준비되면 이 스크립트가 방명록/Thanks to를 렌더링
+<script>
+  const SHEET_CSV = "여기에_공개_시트_CSV_URL";
+</script>
+-->
+
+</body>
+</html>
