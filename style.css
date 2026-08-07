@@ -602,3 +602,38 @@ mark.hl {
   white-space: nowrap;
   vertical-align: 2px;
 }
+
+/* ── 대본 본문 ────────────────────────── */
+.synopsis {
+  border: 1px solid var(--panel-edge);
+  border-left: 2px solid var(--led);
+  background: var(--panel);
+  padding: 22px 24px;
+  margin-bottom: 36px;
+  max-width: 70ch;
+}
+.synopsis .logline {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.8;
+  margin: 0 0 14px;
+}
+.synopsis .syn-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--led);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+.synopsis p { margin: 0; font-size: 14px; color: var(--bone-dim); }
+.script {
+  white-space: pre-line;
+  font-size: 14px;
+  line-height: 1.95;
+  color: var(--bone-dim);
+  max-width: 68ch;
+}
+.script b { color: var(--bone); font-weight: 600; }
+.script .dir { color: var(--led); font-family: var(--mono); font-size: 12px; }
