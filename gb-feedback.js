@@ -30,6 +30,7 @@
         body.append('category', form.category.value);
         body.append('link', form.link.value.trim());
         body.append('visible', form.visible.value);
+        body.append('crew', form.crew && form.crew.checked ? '지원' : '');
         if (fileData) {
           body.append('fileData', fileData);
           body.append('fileName', fileName);

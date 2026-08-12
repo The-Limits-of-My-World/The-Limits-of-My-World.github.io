@@ -726,19 +726,20 @@ mark.hl {
   margin: 56px auto;
 }
 
-/* ── 아트 디렉터 모집 ─────────────────── */
-.recruit { border: 1px solid var(--led); margin-bottom: 56px; }
-.recruit h3 { color: var(--led); }
-.recruit-offer {
-  font-family: var(--serif);
-  font-size: 19px !important;
-  color: var(--bone) !important;
-  border-top: 1px dashed var(--panel-edge);
-  padding-top: 16px;
-  margin-top: 4px !important;
-  max-width: none !important;
+/* ── 크루 옵트인 (피드백 폼 내 조용한 체크) ── */
+.gb-crew { margin-top: 4px; }
+.gb-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--bone-dim);
+  cursor: pointer;
 }
-.recruit-offer small { font-family: var(--mono); font-size: 11px; color: var(--bone-dim); letter-spacing: 0.06em; }
+.gb-check input[type="checkbox"] { margin-top: 3px; accent-color: var(--led); flex: 0 0 auto; }
+.gb-check:hover { color: var(--bone); }
 
 /* ── Contact ──────────────────────────── */
 .contact {
