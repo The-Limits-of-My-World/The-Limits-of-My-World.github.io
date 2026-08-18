@@ -291,8 +291,8 @@ td.mono { font-family: var(--mono); font-size: 12px; }
 .track-play:hover, .track-play:focus-visible { color: var(--led); border-color: var(--led); }
 .track-play:focus-visible { outline: 1px solid var(--led); outline-offset: 3px; }
 .track.playing .track-play { color: var(--led); border-color: var(--led); }
-.track.playing .track-name { color: var(--bone); }
-.track-name { font-size: 14.5px; color: var(--bone-dim); transition: color 0.15s; }
+.track.playing .track-name { color: var(--led); }
+.track-name { font-size: 14.5px; color: var(--led); transition: color 0.15s; }
 .track-name small { display: block; font-family: var(--mono); font-size: 11px; color: var(--bone-faint); letter-spacing: 0.1em; }
 .track-dur { font-family: var(--mono); font-size: 12px; color: var(--bone-faint); font-variant-numeric: tabular-nums; }
 .track .bar { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--led); }

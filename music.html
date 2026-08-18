@@ -130,9 +130,8 @@
   audio.addEventListener('ended', function () {
     var i = tracks.indexOf(current);
     stopVisual(current); current = null;
-    if (i > -1 && i + 1 < tracks.length) {
-      tracks[i + 1].querySelector('.track-play').click();
-    }
+    var next = (i > -1 && i + 1 < tracks.length) ? i + 1 : 0;
+    tracks[next].querySelector('.track-play').click();
   });
 })();
 </script>
