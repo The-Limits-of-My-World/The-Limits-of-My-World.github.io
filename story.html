@@ -324,39 +324,30 @@ This film was produced with AI. This film is about AI. But it began as a reflect
   <div class="fb-items" id="fbItems"><p class="fb-items-empty" id="fbItemsEmpty">아직 담긴 아이디어가 없어요 — 이대로 보내면 <b>스토리 전체 피드백</b>이 됩니다. 본문을 드래그해 부분을 연결해보세요.</p></div>
   <form id="fbForm" class="fb-tray-form">
     <textarea id="fbMsg" name="msg" placeholder="담은 부분들 또는 스토리 전체에 대한 피드백을 자유롭게…" maxlength="2000"></textarea>
-    <div class="fb-tray-row">
-      <input id="fbName" name="name" type="text" placeholder="이름 / 닉네임" required maxlength="40">
-      <input id="fbEmail" name="email" type="email" placeholder="이메일 (비공개)" required>
-    </div>
-    <div class="fb-tray-row">
-      <input id="fbInsta" name="insta" type="text" placeholder="@instagram (선택)" maxlength="40">
-      <select id="fbCredit" name="credit"><option value="이름">크레딧: 이름</option><option value="이메일 아이디">크레딧: 이메일 아이디</option><option value="인스타그램">크레딧: 인스타그램</option></select>
-    </div>
     <div class="fb-tray-submit"><button type="submit" id="fbSend" class="fb-send">피드백 보내기</button><span id="fbStatus" class="fb-tray-status"></span></div>
   </form>
 </aside>
 
-<script src="gb-config.js"></script>
 <script>
 (function () {
-  var GB = window.GB_API;
-  // ── 노드별 참여 배지 ──
-  if (GB) {
-    fetch(GB).then(function (r) { return r.json(); }).then(function (d) {
-      var byNode = {};
-      ((d && d.entries) || []).forEach(function (e) {
-        if (!e.node) return;
-        byNode[e.node] = byNode[e.node] || [];
-        if (byNode[e.node].indexOf(e.who) === -1) byNode[e.node].push(e.who);
-      });
-      document.querySelectorAll('details.node').forEach(function (node) {
-        var num = node.querySelector('.node-num'); if (!num) return;
-        var n = (byNode[num.textContent.trim()] || []).length; if (!n) return;
-        var b = document.createElement('span'); b.className = 'node-count';
-        b.textContent = '피드백 ' + n + '명 참여';
-        node.querySelector('.node-title').appendChild(b);
-      });
-    }).catch(function () {});
+  var supa = null;
+  var WORK_ID = '7c9de32b-71d9-4ba4-85e5-6279f3cc73f3';
+
+  async function loadBadges() {
+    if (!supa) return;
+    var res = await supa.from('feedback').select('node, user_id').eq('work_id', WORK_ID).eq('approved', true);
+    if (res.error) { console.warn('[story] badges', res.error); return; }
+    var byNode = {};
+    (res.data || []).forEach(function (e) { if (!e.node || !e.user_id) return; byNode[e.node] = byNode[e.node] || {}; byNode[e.node][e.user_id] = 1; });
+    document.querySelectorAll('.node-count').forEach(function (x) { x.remove(); });
+    document.querySelectorAll('details.node').forEach(function (node) {
+      var num = node.querySelector('.node-num'); if (!num) return;
+      var m = byNode[num.textContent.trim()];
+      var n = m ? Object.keys(m).length : 0; if (!n) return;
+      var b = document.createElement('span'); b.className = 'node-count';
+      b.textContent = '피드백 ' + n + '명 참여';
+      node.querySelector('.node-title').appendChild(b);
+    });
   }
 
   // ── 피드백 모드: 드래그로 여러 부분 담기 → 한 번에 전송 ──
@@ -448,31 +439,37 @@ This film was produced with AI. This film is about AI. But it began as a reflect
     if (e.target.closest('button')) addPassage();
   });
 
-  if (!GB) { sendBtn.classList.add('disabled'); status.textContent = '전송 준비 중 — 곧 열립니다'; }
-  form.addEventListener('submit', function (e) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
-    if (!GB) return;
-    var name = form.name.value.trim(), email = form.email.value.trim(), note = form.msg.value.trim();
-    if (!name || !email) { status.textContent = '이름과 이메일을 입력해주세요.'; return; }
+    var u = window.NOALIBI && window.NOALIBI.user;
+    if (!u) { if (window.NOALIBI && window.NOALIBI.login) window.NOALIBI.login(); status.textContent = '로그인이 필요해요 — 로그인 후 다시 보내주세요.'; return; }
+    if (!supa) { status.textContent = '잠시 후 다시 시도해주세요.'; return; }
+    var note = form.msg.value.trim();
     if (!collected.length && !note) { status.textContent = '피드백 내용을 입력하거나 부분을 담아주세요.'; return; }
     var parts = collected.map(function (c, i) { return (i + 1) + '. 「' + c.quote + '」[' + c.node + ']'; }).join('\n');
     var full = (parts ? '[담은 부분]\n' + parts + '\n\n' : '') + (note ? '[피드백]\n' + note : '');
     var nodes = [];
     collected.forEach(function (c) { if (nodes.indexOf(c.node) === -1) nodes.push(c.node); });
     var nodeField = collected.length ? (nodes.length === 1 ? nodes[0] : '여러 노드') : '스토리 전체';
-    var body = new URLSearchParams();
-    body.append('name', name); body.append('email', email);
-    body.append('insta', form.insta.value.trim()); body.append('credit', form.credit.value);
-    body.append('msg', full); body.append('node', nodeField);
-    sendBtn.classList.add('disabled'); status.classList.remove('ok'); status.textContent = '전송 중…';
-    fetch(GB, { method: 'POST', mode: 'no-cors', body: body }).then(function () {
-      status.classList.add('ok'); status.textContent = '보냈습니다. 감사합니다!';
-      form.reset();
-      setTimeout(function () { setMode(false); }, 1400);
-    }).catch(function () {
-      status.textContent = '전송 실패 — 잠시 후 다시 시도해주세요.'; sendBtn.classList.remove('disabled');
-    });
+    var passages = collected.map(function (c) { return { quote: c.quote, node: c.node }; });
+    sendBtn.classList.add('disabled'); status.classList.remove('ok'); status.textContent = '보내는 중…';
+    var res = await supa.from('feedback').insert({ user_id: u.id, work_id: WORK_ID, node: nodeField, body: full, passages: passages });
+    if (res.error) { status.textContent = '전송 실패 — 잠시 후 다시 시도해주세요.'; sendBtn.classList.remove('disabled'); console.error('[story] insert', res.error); return; }
+    status.classList.add('ok'); status.textContent = '보냈습니다. +10 cin — 감사합니다!';
+    form.reset(); sendBtn.classList.remove('disabled');
+    document.dispatchEvent(new CustomEvent('noalibi-refresh'));
+    loadBadges();
+    setTimeout(function () { setMode(false); }, 1600);
   });
+
+  function whenReady(cb) {
+    (function poll() {
+      if (window.NOALIBI && window.NOALIBI.ready) window.NOALIBI.ready.then(cb);
+      else setTimeout(poll, 60);
+    })();
+  }
+  whenReady(function (s) { supa = s; loadBadges(); });
+  document.addEventListener('noalibi-auth', function () { loadBadges(); });
 })();
 </script>
 <script type="module" src="auth.js"></script>
