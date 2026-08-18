@@ -37,6 +37,7 @@
     </p>
 
 
+    <p class="hl-guide">✎ <b>Drag</b> any passage to leave feedback right there. Use the <b>highlighter button</b> on the right for whole-story feedback too.</p>
     <figure class="story-poster">
       <img src="../assets/poster.jpg" alt="The Limits of My World poster — Wittgenstein v4.5" width="1158" height="1158">
       <figcaption>Poster — Wittgenstein v4.5</figcaption>
@@ -314,12 +315,15 @@ This film was produced with AI. This film is about AI. But it began as a reflect
       </div>
     </details>
 
-    <div class="sec-head" id="dialogue" style="margin-top:60px"><span class="sec-num">5.</span><h2>Creative Dialogue</h2></div>
-    <p class="sec-sub">Creative Dialogue Archive — the raw record of working with AI</p>
+    <h3 class="story-subhead" id="dialogue">Creative Dialogue <small>the raw conversations this story was made from — part of the story versions</small></h3>
     <div style="border:1px solid var(--panel-edge);border-radius:8px;background:var(--panel);padding:24px 26px;margin:8px 0 30px">
       <p style="font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--led);margin:0 0 12px">COMING SOON · KEPT PRIVATE FOR NOW</p>
       <p style="color:var(--bone-dim);line-height:1.85;margin:0;max-width:64ch">This work was made through countless conversations with several AIs (Gemini, Claude, Grok, and more). The raw dialogue and its classification will be published here in full — currently being organised and reviewed, and kept private for now.</p>
     </div>
+
+    <details class="memo-fold" id="storyMemo" data-node="Whole story" style="margin-top:36px">
+      <summary>✎ Leave feedback on the whole story</summary>
+    </details>
 
     <div class="pager">
       <a href="videos.html">← 3. Videos</a>
@@ -332,6 +336,17 @@ This film was produced with AI. This film is about AI. But it began as a reflect
     <span class="power">Power Consumption: +1e12 kWh</span>
   </footer>
 
+</div>
+
+<button id="hlFab" class="hl-fab" type="button" title="Leave feedback with the highlighter" aria-label="highlighter feedback">🖍</button>
+<div id="hlHint" class="hl-hint" hidden>
+  <span><b>Drag</b> the part to comment on</span>
+  <button type="button" class="hl-hint-whole">Whole story</button>
+  <button type="button" class="hl-hint-x" aria-label="close">×</button>
+</div>
+<div id="hlPop" class="hl-pop" hidden>
+  <button type="button" data-mode="part">This passage</button>
+  <button type="button" data-mode="whole">Whole story</button>
 </div>
 
 <script src="../gb-config.js"></script>
@@ -416,61 +431,87 @@ This film was produced with AI. This film is about AI. But it began as a reflect
     }).catch(function () {});
   }
 
-  // highlight-to-note
-  var btn2 = document.createElement('button');
-  btn2.className = 'sel-memo-btn';
-  btn2.textContent = '✎ Note on this passage';
-  btn2.style.display = 'none';
-  document.body.appendChild(btn2);
+  // highlighter FAB: fixed right → select range → this-passage / whole-story feedback
+  var fab = document.getElementById('hlFab');
+  var hint = document.getElementById('hlHint');
+  var pop = document.getElementById('hlPop');
+  var storyMemo = document.getElementById('storyMemo');
   var curRange = null, curBody = null;
-  function hideBtn() { btn2.style.display = 'none'; curRange = null; curBody = null; }
-  function onSelEnd() {
-    setTimeout(function () {
-      var sel = window.getSelection();
-      if (!sel || sel.isCollapsed || !sel.toString().trim()) { hideBtn(); return; }
-      var range = sel.getRangeAt(0);
-      var el = range.commonAncestorContainer;
-      if (el.nodeType === 3) el = el.parentElement;
-      var body = el.closest ? el.closest('.node-body') : null;
-      if (!body || el.closest('.memo-fold')) { hideBtn(); return; }
-      curRange = range.cloneRange();
-      curBody = body;
-      var rect = range.getBoundingClientRect();
-      btn2.style.display = 'block';
-      btn2.style.left = Math.max(12, window.scrollX + rect.left + rect.width / 2 - btn2.offsetWidth / 2) + 'px';
-      btn2.style.top = (window.scrollY + rect.bottom + 10) + 'px';
-    }, 10);
-  }
-  document.addEventListener('mouseup', onSelEnd);
-  document.addEventListener('touchend', onSelEnd);
-  document.addEventListener('mousedown', function (e) { if (e.target !== btn2) hideBtn(); });
-  btn2.addEventListener('click', function () {
-    if (!curRange || !curBody) return;
-    var quote = curRange.toString().trim().slice(0, 300);
-    try {
-      var mark = document.createElement('mark');
-      mark.className = 'hl';
-      curRange.surroundContents(mark);
-    } catch (err) {}
-    var fold = curBody.querySelector('.memo-fold');
-    if (fold) {
-      fold.open = true;
-      var form = fold.querySelector('form');
-      var old = form.querySelector('.gb-quote');
-      if (old) old.remove();
+
+  function openMemo(fold, quote) {
+    if (!fold) return;
+    fold.open = true;
+    var form = fold.querySelector('form');
+    if (!form) return;
+    var old = form.querySelector('.gb-quote');
+    if (old) old.remove();
+    if (quote) {
       var q = document.createElement('div');
       q.className = 'gb-quote';
       var lb = document.createElement('span'); lb.className = 'q-label'; lb.textContent = 'A note on this passage';
       q.appendChild(lb);
-      q.appendChild(document.createTextNode('"' + quote + '"'));
+      q.appendChild(document.createTextNode('“' + quote + '”'));
       form.insertBefore(q, form.firstChild);
       form.dataset.quote = quote;
-      var ta = form.querySelector('textarea');
-      fold.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      setTimeout(function () { ta.focus(); }, 300);
+    } else {
+      delete form.dataset.quote;
+    }
+    var ta = form.querySelector('textarea');
+    fold.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(function () { if (ta) ta.focus(); }, 320);
+  }
+  function hidePop() { pop.hidden = true; }
+  function setMode(on) {
+    document.body.classList.toggle('hl-mode', on);
+    fab.classList.toggle('on', on);
+    hint.hidden = !on;
+    if (!on) hidePop();
+  }
+
+  fab.addEventListener('click', function () { setMode(!document.body.classList.contains('hl-mode')); });
+  hint.querySelector('.hl-hint-x').addEventListener('click', function () { setMode(false); });
+  hint.querySelector('.hl-hint-whole').addEventListener('click', function () { openMemo(storyMemo, null); setMode(false); });
+
+  function onSelEnd() {
+    setTimeout(function () {
+      var sel = window.getSelection();
+      if (!sel || sel.isCollapsed || !sel.toString().trim()) { hidePop(); return; }
+      var range = sel.getRangeAt(0);
+      var el = range.commonAncestorContainer;
+      if (el.nodeType === 3) el = el.parentElement;
+      var body = el.closest ? el.closest('.node-body') : null;
+      if (!body || el.closest('.memo-fold')) { hidePop(); return; }
+      curRange = range.cloneRange(); curBody = body;
+      var rect = range.getBoundingClientRect();
+      pop.hidden = false;
+      pop.style.left = Math.max(12, window.scrollX + rect.left + rect.width / 2 - pop.offsetWidth / 2) + 'px';
+      pop.style.top = (window.scrollY + rect.bottom + 10) + 'px';
+    }, 10);
+  }
+  document.addEventListener('mouseup', onSelEnd);
+  document.addEventListener('touchend', onSelEnd);
+  document.addEventListener('mousedown', function (e) { if (!pop.contains(e.target) && e.target !== fab) hidePop(); });
+
+  pop.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b || !curRange) return;
+    var mode = b.getAttribute('data-mode');
+    var quote = curRange.toString().trim().slice(0, 300);
+    if (mode === 'part') {
+      try { var mk = document.createElement('mark'); mk.className = 'hl'; curRange.surroundContents(mk); } catch (err) {}
+      openMemo(curBody.querySelector('.memo-fold'), quote);
+    } else {
+      openMemo(storyMemo, null);
     }
     window.getSelection().removeAllRanges();
-    hideBtn();
+    hidePop();
+  });
+
+  document.querySelectorAll('details.memo-fold form').forEach(function (form) {
+    form.addEventListener('submit', function () {
+      if (form.dataset.quote && form.msg.value.indexOf('“') !== 0) {
+        form.msg.value = '“' + form.dataset.quote + '”\n' + form.msg.value;
+      }
+    }, true);
   });
 })();
 </script>
