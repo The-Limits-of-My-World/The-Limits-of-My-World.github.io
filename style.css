@@ -780,3 +780,20 @@ footer a:hover { color: var(--led); }
 .fb-collapse > summary:hover { opacity: .9; transform: translateY(-1px); }
 .fb-collapse[open] > summary { margin-bottom: 6px; }
 .fb-collapse .gb-write { text-align: left; margin-top: 22px; }
+
+
+/* ── 스토리 노드: 좌측 이미지 세로열 + 우측 글 ── */
+.node-split { display: grid; grid-template-columns: 250px 1fr; gap: 30px; align-items: start; }
+.node-imgs { display: flex; flex-direction: column; gap: 14px; position: sticky; top: 20px; }
+.node-imgs .ni { margin: 0; }
+.node-imgs .ni img { width: 100%; display: block; border: 1px solid var(--panel-edge); border-radius: 4px; }
+.node-imgs .ni .slot { aspect-ratio: 4 / 3; }
+.node-imgs .ni figcaption { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.04em; color: var(--bone-faint); margin-top: 7px; line-height: 1.5; }
+.story-poster { margin: 0 0 40px; max-width: 340px; }
+.story-poster img { width: 100%; display: block; border: 1px solid var(--panel-edge); }
+.story-poster figcaption { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--bone-faint); margin-top: 10px; }
+@media (max-width: 720px) {
+  .node-split { grid-template-columns: 1fr; gap: 18px; }
+  .node-imgs { position: static; flex-direction: row; overflow-x: auto; padding-bottom: 4px; }
+  .node-imgs .ni { flex: 0 0 62%; }
+}
