@@ -865,3 +865,9 @@ mark.hl { background: rgba(255,61,46,0.28); color: inherit; padding: 0 1px; }
 .fb-tray-status { font-family: var(--mono); font-size: 11px; color: var(--bone-dim); }
 .fb-tray-status.ok { color: var(--led); }
 @media (max-width: 720px) { .fb-tray { right: 10px; left: 10px; bottom: 10px; width: auto; max-height: 70vh; } }
+
+
+/* ── 하트(좋아요) ── */
+.gb-heart { margin-top: 9px; background: none; border: 1px solid var(--panel-edge); border-radius: 20px; color: var(--bone-dim); font-family: var(--mono); font-size: 12px; padding: 4px 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: color 0.15s, border-color 0.15s, background 0.15s; }
+.gb-heart:hover { border-color: var(--led); color: var(--led); }
+.gb-heart.liked { color: var(--led); border-color: var(--led); background: rgba(255,61,46,0.08); }

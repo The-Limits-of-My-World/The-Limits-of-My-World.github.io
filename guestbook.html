@@ -109,6 +109,24 @@
 <script src="gb-config.js"></script>
 <script>
 (function () {
+  function makeHeart(id, likes) {
+    var b = document.createElement('button');
+    b.className = 'gb-heart'; b.type = 'button';
+    var liked = !!(id && localStorage.getItem('liked_' + id));
+    var count = Number(likes) || 0;
+    function paint() { b.classList.toggle('liked', liked); b.textContent = (liked ? '♥' : '♡') + ' ' + count; }
+    paint();
+    b.addEventListener('click', function () {
+      if (!window.GB_API || !id) return;
+      liked = !liked; count = Math.max(0, count + (liked ? 1 : -1));
+      if (liked) localStorage.setItem('liked_' + id, '1'); else localStorage.removeItem('liked_' + id);
+      paint();
+      var body = new URLSearchParams();
+      body.append('action', liked ? 'like' : 'unlike'); body.append('row', id);
+      fetch(GB_API, { method: 'POST', mode: 'no-cors', body: body }).catch(function () {});
+    });
+    return b;
+  }
   function gbSubmit(form, node, btn, status) {
     if (!window.GB_API) return;
     var body = new URLSearchParams();
@@ -165,7 +183,7 @@
       if (r.node) { var t = document.createElement('span'); t.className = 'node-tag'; t.textContent = r.node; whoEl.appendChild(t); }
       var w = document.createElement('span'); w.className = 'when'; w.textContent = r.t || ''; whoEl.appendChild(w);
       var msgEl = document.createElement('p'); msgEl.className = 'msg'; msgEl.textContent = r.msg;
-      div.appendChild(whoEl); div.appendChild(msgEl);
+      div.appendChild(whoEl); div.appendChild(msgEl); div.appendChild(makeHeart(r.id, r.likes));
       entries.appendChild(div);
     });
     var tn = document.getElementById('thanks-names');
