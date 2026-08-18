@@ -882,3 +882,21 @@ mark.hl { background: rgba(255,61,46,0.28); color: inherit; padding: 0 1px; }
 .gb-write-btn:hover { opacity: 0.9; transform: translateY(-1px); }
 .gb-write-panel { margin: 24px 0 8px; }
 @media (max-width: 600px) { .gb-write-btn { width: 100%; justify-content: center; } }
+
+
+/* ── no-alibi 로그인 위젯 + cin ── */
+.authbar { display: inline-flex; align-items: center; gap: 10px; margin-left: 10px; }
+.auth-btn { background: none; border: 1px solid var(--led); color: var(--led); border-radius: 6px; font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.04em; padding: 4px 11px; cursor: pointer; transition: background 0.15s, color 0.15s; }
+.auth-btn:hover { background: var(--led); color: var(--void); }
+.auth-cin { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--led); }
+.auth-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.62); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+.auth-box { position: relative; background: var(--panel); border: 1px solid var(--led); border-radius: 12px; padding: 28px 26px 24px; width: min(380px, 92vw); box-shadow: 0 12px 40px rgba(0,0,0,0.55); }
+.auth-box h3 { margin: 0 0 8px; font-family: var(--serif); font-weight: 400; font-size: 20px; color: var(--bone); }
+.auth-box p { margin: 0 0 16px; font-size: 13px; line-height: 1.65; color: var(--bone-dim); }
+.auth-x { position: absolute; top: 12px; right: 14px; background: none; border: none; color: var(--bone-faint); font-size: 20px; line-height: 1; cursor: pointer; }
+.auth-form { display: flex; flex-direction: column; gap: 10px; }
+.auth-form input { background: var(--void); border: 1px solid var(--panel-edge); border-radius: 7px; color: var(--bone); font-family: var(--sans); font-size: 14px; padding: 11px 12px; box-sizing: border-box; }
+.auth-send { background: var(--led); color: var(--void); border: none; border-radius: 7px; font-family: var(--sans); font-weight: 700; font-size: 14px; padding: 11px; cursor: pointer; }
+.auth-send:disabled { opacity: 0.5; cursor: default; }
+.auth-status { min-height: 1em; margin: 12px 0 0 !important; font-family: var(--mono); font-size: 11.5px; color: var(--bone-dim); }
+.auth-status.ok { color: var(--led); }
