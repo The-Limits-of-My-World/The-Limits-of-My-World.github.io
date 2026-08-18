@@ -906,3 +906,15 @@ mark.hl { background: rgba(255,61,46,0.28); color: inherit; padding: 0 1px; }
 /* ── 방명록 작성 텍스트영역(계정 기반) ── */
 .gb-ta { width: 100%; min-height: 92px; resize: vertical; background: var(--void); border: 1px solid var(--panel-edge); border-radius: 8px; color: var(--bone); font-family: var(--sans); font-size: 14px; line-height: 1.6; padding: 11px 12px; box-sizing: border-box; margin-bottom: 10px; }
 #gbWriteInner > p { font-size: 13px; color: var(--bone-dim); margin: 0 0 12px; }
+
+
+/* ── 작품소개: 포스터(좌) · 글(우) 2단 ── */
+.about-split { display: grid; grid-template-columns: minmax(220px, 320px) 1fr; gap: 34px; align-items: start; margin: 34px 0; }
+.about-split .about-poster { margin: 0; }
+.about-split .about-poster img { width: 100%; height: auto; display: block; }
+.about-split .about-prose { margin: 0; }
+.about-split .about-prose p { margin: 0 0 1em; }
+@media (max-width: 720px) {
+  .about-split { grid-template-columns: 1fr; gap: 20px; }
+  .about-split .about-poster { max-width: 300px; }
+}
