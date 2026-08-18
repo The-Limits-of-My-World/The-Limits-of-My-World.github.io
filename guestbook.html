@@ -79,7 +79,7 @@
   var entriesBox = document.getElementById('gb-entries');
   var empty = document.getElementById('gb-empty');
   var thanks = document.getElementById('thanks-names');
-  var supa = null, likedSet = {};
+  var supa = null;
 
   var wtBtn = document.getElementById('gbWriteToggle');
   var wtPanel = document.getElementById('gbWrite');
@@ -121,34 +121,33 @@
     row.append(sb, st); writeInner.append(ta, row);
   }
 
-  function heart(r) {
-    var count0 = (r.likes && r.likes[0] && r.likes[0].count) || 0;
-    var liked = !!likedSet[r.id], count = count0;
+  function heart(r, count0, liked0) {
+    var liked = liked0, count = count0;
     var b = document.createElement('button'); b.className = 'gb-heart'; b.type = 'button';
     function paint() { b.classList.toggle('liked', liked); b.textContent = (liked ? '♥' : '♡') + ' ' + count; }
     paint();
     b.addEventListener('click', async function () {
       if (!user()) { login(); return; }
       var was = liked; liked = !liked; count = Math.max(0, count + (liked ? 1 : -1)); paint();
-      if (was) { delete likedSet[r.id]; var d = await supa.from('likes').delete().eq('user_id', user().id).eq('feedback_id', r.id); if (d.error) { liked = was; count = count0; likedSet[r.id] = 1; paint(); } }
-      else { likedSet[r.id] = 1; var i = await supa.from('likes').insert({ user_id: user().id, feedback_id: r.id }); if (i.error) { liked = was; count = count0; delete likedSet[r.id]; paint(); console.error('[gb] like', i.error); } }
+      if (was) { var d = await supa.from('likes').delete().eq('user_id', user().id).eq('feedback_id', r.id); if (d.error) { liked = was; count = count0; paint(); console.error('[gb] unlike', d.error); } }
+      else { var i = await supa.from('likes').insert({ user_id: user().id, feedback_id: r.id }); if (i.error) { liked = was; count = count0; paint(); console.error('[gb] like', i.error); } }
     });
     return b;
   }
 
-  function renderEntries(rows) {
+  function renderEntries(rows, nameById, counts, mine) {
     entriesBox.innerHTML = '';
     empty.style.display = rows.length ? 'none' : 'block';
     var names = [];
     rows.forEach(function (r) {
-      var who = (r.profiles && r.profiles.display_name) || (KO ? '익명' : 'anon');
+      var who = nameById[r.user_id] || (KO ? '익명' : 'anon');
       if (names.indexOf(who) === -1) names.push(who);
       var div = document.createElement('div'); div.className = 'gb-entry';
       var whoEl = document.createElement('p'); whoEl.className = 'who'; whoEl.textContent = who;
       if (r.node) { var t = document.createElement('span'); t.className = 'node-tag'; t.textContent = r.node; whoEl.appendChild(t); }
       var w = document.createElement('span'); w.className = 'when'; w.textContent = (r.created_at || '').slice(0, 10); whoEl.appendChild(w);
       var msgEl = document.createElement('p'); msgEl.className = 'msg'; msgEl.textContent = r.body;
-      div.append(whoEl, msgEl, heart(r));
+      div.append(whoEl, msgEl, heart(r, counts[r.id] || 0, !!mine[r.id]));
       entriesBox.appendChild(div);
     });
     thanks.innerHTML = '';
@@ -158,13 +157,25 @@
 
   async function load() {
     if (!supa) return;
-    likedSet = {};
-    if (user()) { var m = await supa.from('likes').select('feedback_id').eq('user_id', user().id); ((m.data) || []).forEach(function (x) { likedSet[x.feedback_id] = 1; }); }
-    var res = await supa.from('feedback')
-      .select('id, body, node, created_at, user_id, profiles(display_name), likes(count)')
+    var fb = await supa.from('feedback').select('id, body, node, created_at, user_id')
       .eq('work_id', WORK_ID).eq('approved', true).order('created_at', { ascending: false });
-    if (res.error) { console.error('[gb] load', res.error); return; }
-    renderEntries(res.data || []);
+    if (fb.error) { console.error('[gb] load feedback', fb.error); return; }
+    var rows = fb.data || [];
+    var nameById = {}, ids = [];
+    rows.forEach(function (r) { if (r.user_id && ids.indexOf(r.user_id) === -1) ids.push(r.user_id); });
+    if (ids.length) {
+      var pr = await supa.from('profiles').select('id, display_name').in('id', ids);
+      if (pr.error) console.warn('[gb] profiles', pr.error);
+      (pr.data || []).forEach(function (p) { nameById[p.id] = p.display_name; });
+    }
+    var counts = {}, mine = {};
+    var lk = await supa.from('likes').select('feedback_id, user_id');
+    if (lk.error) console.warn('[gb] likes', lk.error);
+    (lk.data || []).forEach(function (x) {
+      counts[x.feedback_id] = (counts[x.feedback_id] || 0) + 1;
+      if (user() && x.user_id === user().id) mine[x.feedback_id] = 1;
+    });
+    renderEntries(rows, nameById, counts, mine);
   }
 
   function whenReady(cb) {
