@@ -33,14 +33,13 @@
     <p class="sec-sub">Your language widens the limits of this world</p>
 
     <p class="gb-intro">
-      Thoughts on the story, the film, anything — leave them freely.
+      Thoughts on the work — anything at all — leave them freely.
       Everyone who leaves a name joins <b>Thanks to</b> below.
-      Adopted feedback is written into the living final cut, credited on that node as a
-      Contributing Writer — with a copy of the e-book. (Screening &amp; exhibition invites come separately, by <a href="screening.html">visit gacha</a>.)
     </p>
 
-    <div class="gb-write">
-      <h3>Leave a note</h3>
+    <details class="fb-collapse gb-write-fold">
+      <summary class="fb-btn">Write in the guestbook</summary>
+      <div class="gb-write">
       <p>Your email is used only for contact and verification — it is never shown publicly. Only the credit style you choose below appears in public.</p>
       <form class="gb-form" id="gb-form">
         <div class="gb-row">
@@ -53,25 +52,12 @@
             <input id="gb-email" name="email" type="email" required autocomplete="email">
           </div>
         </div>
-        <div class="gb-row">
-          <div class="gb-field">
-            <label for="gb-insta">Instagram <small>(optional)</small></label>
-            <input id="gb-insta" name="insta" type="text" placeholder="@youraccount" maxlength="40">
-          </div>
-          <div class="gb-field">
-            <label for="gb-node">Related node <small>(optional)</small></label>
-            <select id="gb-node" name="node">
-              <option value="">All / none</option>
-              <option value="NODE 1">NODE 1 — Awakening</option>
-              <option value="NODE 2">NODE 2 — Consumption</option>
-              <option value="NODE 3">NODE 3 — The Return and the Prompt</option>
-              <option value="NODE 4">NODE 4 — The City Become a Server Rack</option>
-              <option value="NODE 5">NODE 5 — Post-credits</option>
-            </select>
-          </div>
+        <div class="gb-field">
+          <label for="gb-insta">Instagram <small>(optional)</small></label>
+          <input id="gb-insta" name="insta" type="text" placeholder="@youraccount" maxlength="40">
         </div>
         <div class="gb-field">
-          <label>Credit as <span class="req">*</span> — how your name appears in Thanks to and adopted credits</label>
+          <label>Credit as <span class="req">*</span> — how your name appears in Thanks to</label>
           <div class="gb-credit-choice">
             <input type="radio" name="credit" id="cr-name" value="이름" checked>
             <label for="cr-name">Name / nickname</label>
@@ -90,21 +76,22 @@
           <span class="gb-status" id="gb-status"></span>
         </div>
       </form>
-    </div>
-
-    <div class="thanks">
-      <h3>Thanks to</h3>
-      <p class="sub">Everyone who left a note</p>
-      <div class="thanks-names" id="thanks-names">
-        <span class="empty">— waiting for the first name —</span>
       </div>
-    </div>
+    </details>
 
-    <div class="thanks">
-      <h3>Words left behind</h3>
-      <p class="sub">Entries</p>
-      <div class="gb-entries" id="gb-entries"></div>
-      <p class="gb-empty" id="gb-empty">The guestbook is still empty. Leave the first word.</p>
+    <div class="gb-split">
+      <aside class="gb-col gb-thanks-col">
+        <h3>Thanks to</h3>
+        <p class="sub">Everyone who left a note</p>
+        <div class="thanks-names" id="thanks-names">
+          <span class="empty">— waiting for the first name —</span>
+        </div>
+      </aside>
+      <section class="gb-col gb-entries-col">
+        <h3>Words left behind <span class="sub-inline">Entries</span></h3>
+        <div class="gb-entries" id="gb-entries"></div>
+        <p class="gb-empty" id="gb-empty">The guestbook is still empty. Leave the first word.</p>
+      </section>
     </div>
 
     <div class="pager"><a href="music.html">← 6. Music</a><a href="revenue.html">8. Revenue →</a></div>
@@ -128,7 +115,7 @@
     body.append('insta', form.insta.value.trim());
     body.append('credit', form.credit.value);
     body.append('msg', form.msg.value.trim());
-    body.append('node', form.node.value);
+    body.append('node', node || '');
     btn.classList.add('disabled');
     status.textContent = 'Sending…';
     fetch(GB_API, { method: 'POST', mode: 'no-cors', body: body })
@@ -153,7 +140,7 @@
   }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    gbSubmit(form, form.node.value, submitBtn, status);
+    gbSubmit(form, '', submitBtn, status);
   });
   if (!window.GB_API) return;
   fetch(GB_API).then(function (r) { return r.json(); }).then(function (d) {

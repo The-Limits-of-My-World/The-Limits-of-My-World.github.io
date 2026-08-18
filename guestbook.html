@@ -33,14 +33,13 @@
     <p class="sec-sub">Guestbook — 당신의 언어가 이 세계의 한계를 넓힙니다</p>
 
     <p class="gb-intro">
-      스토리와 영상에 대한 의견, 감상, 어떤 말이든 자유롭게 남겨주세요.
+      작품에 대해 어떤 말이든 자유롭게 남겨주세요.
       의견을 남겨주신 모든 분은 아래 <b>Thanks to</b>에 오릅니다.
-      채택된 의견은 최종본에 반영되어 해당 노드에 이름이 새겨지고, <b>작가군단</b>으로서 이북 소장권을 드립니다.
-      (상영·전시 초대는 <a href="screening.html">방문 가챠</a>로 별도로 드립니다.)
     </p>
 
-    <div class="gb-write">
-      <h3>의견 남기기</h3>
+    <details class="fb-collapse gb-write-fold">
+      <summary class="fb-btn">방명록 쓰기</summary>
+      <div class="gb-write">
       <p>이메일은 연락·확인용으로만 쓰이며 공개되지 않습니다. 공개 크레딧에는 아래에서 선택한 표기만 사용됩니다.</p>
       <form class="gb-form" id="gb-form">
         <div class="gb-row">
@@ -53,25 +52,12 @@
             <input id="gb-email" name="email" type="email" required autocomplete="email">
           </div>
         </div>
-        <div class="gb-row">
-          <div class="gb-field">
-            <label for="gb-insta">인스타그램 계정 <small>(선택)</small></label>
-            <input id="gb-insta" name="insta" type="text" placeholder="@youraccount" maxlength="40">
-          </div>
-          <div class="gb-field">
-            <label for="gb-node">관련 노드 <small>(선택)</small></label>
-            <select id="gb-node" name="node">
-              <option value="">전체 / 해당 없음</option>
-              <option value="NODE 1">NODE 1 — 각성</option>
-              <option value="NODE 2">NODE 2 — 소모</option>
-              <option value="NODE 3">NODE 3 — 귀환과 프롬프트</option>
-              <option value="NODE 4">NODE 4 — 서버랙이 된 도시</option>
-              <option value="NODE 5">NODE 5 — 쿠키</option>
-            </select>
-          </div>
+        <div class="gb-field">
+          <label for="gb-insta">인스타그램 계정 <small>(선택)</small></label>
+          <input id="gb-insta" name="insta" type="text" placeholder="@youraccount" maxlength="40">
         </div>
         <div class="gb-field">
-          <label>크레딧 표기 선택 <span class="req">*</span> — Thanks to와 채택 크레딧에 이렇게 올라갑니다</label>
+          <label>크레딧 표기 선택 <span class="req">*</span> — Thanks to에 이렇게 올라갑니다</label>
           <div class="gb-credit-choice">
             <input type="radio" name="credit" id="cr-name" value="이름" checked>
             <label for="cr-name">이름 / 닉네임</label>
@@ -90,21 +76,22 @@
           <span class="gb-status" id="gb-status"></span>
         </div>
       </form>
-    </div>
-
-    <div class="thanks">
-      <h3>Thanks to</h3>
-      <p class="sub">의견을 남겨주신 모든 분들</p>
-      <div class="thanks-names" id="thanks-names">
-        <span class="empty">— 첫 이름을 기다리고 있습니다 —</span>
       </div>
-    </div>
+    </details>
 
-    <div class="thanks">
-      <h3>남겨진 말들</h3>
-      <p class="sub">Entries</p>
-      <div class="gb-entries" id="gb-entries"></div>
-      <p class="gb-empty" id="gb-empty">아직 방명록이 비어 있습니다. 첫 번째 말을 남겨주세요.</p>
+    <div class="gb-split">
+      <aside class="gb-col gb-thanks-col">
+        <h3>Thanks to</h3>
+        <p class="sub">의견을 남겨주신 모든 분들</p>
+        <div class="thanks-names" id="thanks-names">
+          <span class="empty">— 첫 이름을 기다리고 있습니다 —</span>
+        </div>
+      </aside>
+      <section class="gb-col gb-entries-col">
+        <h3>남겨진 말들 <span class="sub-inline">Entries</span></h3>
+        <div class="gb-entries" id="gb-entries"></div>
+        <p class="gb-empty" id="gb-empty">아직 방명록이 비어 있습니다. 첫 번째 말을 남겨주세요.</p>
+      </section>
     </div>
 
     <div class="pager">
@@ -158,7 +145,7 @@
   }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    gbSubmit(form, form.node.value, submitBtn, status);
+    gbSubmit(form, '', submitBtn, status);
   });
 
   // ── 표시: 시트 → 방명록 목록 + Thanks to ──

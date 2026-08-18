@@ -826,3 +826,19 @@ mark.hl { background: rgba(255,61,46,0.28); color: inherit; padding: 0 1px; }
   .hl-fab:hover { transform: scale(1.06); }
   .hl-hint { right: 14px; bottom: 78px; top: auto; transform: none; }
 }
+
+
+/* ── 방명록 이분할: 좌 Thanks to · 우 Entries + 접이식 쓰기 ── */
+.gb-write-fold { margin: 24px 0 8px; }
+.gb-split { display: grid; grid-template-columns: minmax(190px, 260px) 1fr; gap: 26px; margin-top: 30px; align-items: start; }
+.gb-col { min-width: 0; }
+.gb-col h3 { margin: 0 0 4px; }
+.gb-col .sub-inline { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--bone-faint); text-transform: uppercase; margin-left: 8px; }
+.gb-thanks-col .thanks-names { max-height: 72vh; overflow-y: auto; }
+.gb-entries-col .gb-entries { max-height: 72vh; overflow-y: auto; padding-right: 6px; }
+.gb-entries-col .gb-entries::-webkit-scrollbar, .gb-thanks-col .thanks-names::-webkit-scrollbar { width: 7px; }
+.gb-entries-col .gb-entries::-webkit-scrollbar-thumb, .gb-thanks-col .thanks-names::-webkit-scrollbar-thumb { background: var(--panel-edge); border-radius: 4px; }
+@media (max-width: 720px) {
+  .gb-split { grid-template-columns: 1fr; gap: 22px; }
+  .gb-thanks-col .thanks-names, .gb-entries-col .gb-entries { max-height: 46vh; }
+}
