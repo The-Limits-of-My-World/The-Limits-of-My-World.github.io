@@ -918,3 +918,10 @@ mark.hl { background: rgba(255,61,46,0.28); color: inherit; padding: 0 1px; }
   .about-split { grid-template-columns: 1fr; gap: 20px; }
   .about-split .about-poster { max-width: 300px; }
 }
+
+
+/* ── 트레일러 영상 ── */
+.video-item { margin: 0; }
+.video-item video { width: 100%; aspect-ratio: 16 / 9; display: block; background: #000; border: 1px solid var(--panel-edge); }
+.video-item figcaption { margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; color: var(--bone-dim); text-transform: uppercase; }
+.video-item figcaption small { color: var(--led); margin-left: 8px; }
