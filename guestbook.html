@@ -28,7 +28,10 @@
   </header>
 
   <main>
-    <div class="sec-head"><span class="sec-num">6.</span><h2>방명록</h2></div>
+    <div class="gb-topbar">
+      <div class="sec-head"><span class="sec-num">6.</span><h2>방명록</h2></div>
+      <button type="button" class="gb-write-btn" id="gbWriteToggle">방명록 쓰기</button>
+    </div>
     <p class="sec-sub">Guestbook — 당신의 언어가 이 세계의 한계를 넓힙니다</p>
 
     <p class="gb-intro">
@@ -36,9 +39,7 @@
       의견을 남겨주신 모든 분은 아래 <b>Thanks to</b>에 오릅니다.
     </p>
 
-    <details class="fb-collapse gb-write-fold">
-      <summary class="fb-btn">방명록 쓰기</summary>
-      <div class="gb-write">
+    <div class="gb-write gb-write-panel" id="gbWrite" hidden>
       <p>이메일은 연락·확인용으로만 쓰이며 공개되지 않습니다. 공개 크레딧에는 아래에서 선택한 표기만 사용됩니다.</p>
       <form class="gb-form" id="gb-form">
         <div class="gb-row">
@@ -76,7 +77,6 @@
         </div>
       </form>
       </div>
-    </details>
 
     <div class="gb-split">
       <aside class="gb-col gb-thanks-col">
@@ -150,6 +150,15 @@
         btn.classList.remove('disabled');
       });
   }
+
+  var wtBtn = document.getElementById('gbWriteToggle');
+  var wtPanel = document.getElementById('gbWrite');
+  if (wtBtn && wtPanel) wtBtn.addEventListener('click', function () {
+    var opening = wtPanel.hidden;
+    wtPanel.hidden = !opening;
+    wtBtn.classList.toggle('open', opening);
+    if (opening) wtPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
 
   var form = document.getElementById('gb-form');
   var status = document.getElementById('gb-status');

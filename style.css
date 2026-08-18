@@ -815,6 +815,7 @@ footer a:hover { color: var(--led); }
 .hl-hint-whole { background: none; border: 1px solid var(--led); color: var(--led); border-radius: 5px; padding: 5px 9px; font-family: var(--mono); font-size: 11px; cursor: pointer; white-space: nowrap; }
 .hl-hint-whole:hover { background: var(--led); color: var(--void); }
 .hl-hint-x { background: none; border: none; color: var(--bone-faint); font-size: 16px; cursor: pointer; line-height: 1; padding: 0 2px; }
+.hl-pop[hidden] { display: none; }
 .hl-pop { position: absolute; z-index: 60; display: flex; background: var(--void); border: 1px solid var(--led); border-radius: 7px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.5); }
 .hl-pop button { background: none; border: none; color: var(--bone); font-family: var(--mono); font-size: 12px; padding: 9px 14px; cursor: pointer; white-space: nowrap; }
 .hl-pop button[data-mode="part"] { border-right: 1px solid var(--panel-edge); color: var(--led); }
@@ -871,3 +872,13 @@ mark.hl { background: rgba(255,61,46,0.28); color: inherit; padding: 0 1px; }
 .gb-heart { margin-top: 9px; background: none; border: 1px solid var(--panel-edge); border-radius: 20px; color: var(--bone-dim); font-family: var(--mono); font-size: 12px; padding: 4px 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: color 0.15s, border-color 0.15s, background 0.15s; }
 .gb-heart:hover { border-color: var(--led); color: var(--led); }
 .gb-heart.liked { color: var(--led); border-color: var(--led); background: rgba(255,61,46,0.08); }
+
+
+/* ── 방명록 상단바: 제목 좌 · 쓰기 버튼 우 ── */
+.gb-topbar { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.gb-write-btn { background: var(--led); color: var(--void); border: none; border-radius: 8px; font-family: var(--sans); font-weight: 700; font-size: 14px; padding: 10px 20px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: opacity 0.15s, transform 0.15s; }
+.gb-write-btn::after { content: "＋"; font-weight: 400; font-size: 15px; }
+.gb-write-btn.open::after { content: "－"; }
+.gb-write-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.gb-write-panel { margin: 24px 0 8px; }
+@media (max-width: 600px) { .gb-write-btn { width: 100%; justify-content: center; } }

@@ -28,7 +28,10 @@
   </header>
 
   <main>
-    <div class="sec-head"><span class="sec-num">6.</span><h2>Guestbook</h2></div>
+    <div class="gb-topbar">
+      <div class="sec-head"><span class="sec-num">6.</span><h2>Guestbook</h2></div>
+      <button type="button" class="gb-write-btn" id="gbWriteToggle">Write in the guestbook</button>
+    </div>
     <p class="sec-sub">Your language widens the limits of this world</p>
 
     <p class="gb-intro">
@@ -36,9 +39,7 @@
       Everyone who leaves a name joins <b>Thanks to</b> below.
     </p>
 
-    <details class="fb-collapse gb-write-fold">
-      <summary class="fb-btn">Write in the guestbook</summary>
-      <div class="gb-write">
+    <div class="gb-write gb-write-panel" id="gbWrite" hidden>
       <p>Your email is used only for contact and verification — it is never shown publicly. Only the credit style you choose below appears in public.</p>
       <form class="gb-form" id="gb-form">
         <div class="gb-row">
@@ -76,7 +77,6 @@
         </div>
       </form>
       </div>
-    </details>
 
     <div class="gb-split">
       <aside class="gb-col gb-thanks-col">
@@ -147,6 +147,15 @@
         btn.classList.remove('disabled');
       });
   }
+  var wtBtn = document.getElementById('gbWriteToggle');
+  var wtPanel = document.getElementById('gbWrite');
+  if (wtBtn && wtPanel) wtBtn.addEventListener('click', function () {
+    var opening = wtPanel.hidden;
+    wtPanel.hidden = !opening;
+    wtBtn.classList.toggle('open', opening);
+    if (opening) wtPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
   var form = document.getElementById('gb-form');
   var status = document.getElementById('gb-status');
   var submitBtn = document.getElementById('gb-submit');
