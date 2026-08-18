@@ -31,6 +31,7 @@
         body.append('link', form.link.value.trim());
         body.append('visible', form.visible.value);
         body.append('crew', form.crew && form.crew.checked ? '지원' : '');
+        body.append('news', form.news && form.news.checked ? '수신' : '');
         if (fileData) {
           body.append('fileData', fileData);
           body.append('fileName', fileName);

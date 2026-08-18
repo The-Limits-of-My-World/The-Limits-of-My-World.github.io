@@ -764,3 +764,19 @@ mark.hl {
 .contact .c-sub a:hover { color: var(--led); border-color: var(--led); }
 footer a { color: var(--bone-faint); }
 footer a:hover { color: var(--led); }
+
+
+/* ── 피드백 남기기 — 빨간 버튼 접기 ── */
+.fb-collapse { margin: 44px 0; text-align: center; }
+.fb-collapse > summary {
+  display: inline-flex; align-items: center; gap: 9px; cursor: pointer; list-style: none;
+  background: var(--led); color: var(--void); font-family: var(--sans); font-weight: 700;
+  font-size: 15px; letter-spacing: 0.02em; padding: 14px 30px; border-radius: 8px;
+  transition: opacity .15s, transform .15s;
+}
+.fb-collapse > summary::-webkit-details-marker { display: none; }
+.fb-collapse > summary::after { content: "＋"; font-weight: 400; font-size: 16px; }
+.fb-collapse[open] > summary::after { content: "－"; }
+.fb-collapse > summary:hover { opacity: .9; transform: translateY(-1px); }
+.fb-collapse[open] > summary { margin-bottom: 6px; }
+.fb-collapse .gb-write { text-align: left; margin-top: 22px; }

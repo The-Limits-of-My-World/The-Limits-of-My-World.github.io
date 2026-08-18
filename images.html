@@ -58,8 +58,9 @@
       </div>
     </div>
 
-    <div class="gb-write">
-      <h3>이미지 피드백 남기기</h3>
+    <details class="fb-collapse">
+      <summary class="fb-btn">피드백 남기기</summary>
+      <div class="gb-write">
       <p>레퍼런스 추천, 연출·디자인 피드백을 환영합니다. 참고 이미지 첨부(5MB 이하)나 링크도 같이 남길 수 있어요.
       첨부한 이미지·링크는 <b>원칙적으로 공개하지 않으며</b>, 공개를 원하시는 경우에만 홈페이지에 노출됩니다. 이메일은 항상 비공개입니다.</p>
       <form class="gb-form fb-form" data-node="IMAGES" data-lang="ko">
@@ -99,6 +100,9 @@
         <div class="gb-field gb-crew">
           <label class="gb-check"><input type="checkbox" name="crew" value="지원"> 이 작품의 크루로 함께할 의향이 있어요 — 남긴 피드백을 지원서로도 봐주세요.</label>
         </div>
+        <div class="gb-field gb-crew">
+          <label class="gb-check"><input type="checkbox" name="news" value="수신"> 작품 정보 수신 — 이북·영상·전시 등 소식을 받아보실 수 있습니다.</label>
+        </div>
         <div class="gb-row">
           <div class="gb-field"><label>이름 / 닉네임 <span class="req">*</span></label><input name="name" type="text" required maxlength="40"></div>
           <div class="gb-field"><label>이메일 <span class="req">*</span> <small>(비공개)</small></label><input name="email" type="email" required></div>
@@ -112,6 +116,7 @@
         <div class="gb-submit-row"><button class="gb-btn" type="submit">남기기</button><span class="gb-status"></span></div>
       </form>
     </div>
+    </details>
 
     <div class="pager">
       <a href="about.html">← 1. 작품 소개</a>
