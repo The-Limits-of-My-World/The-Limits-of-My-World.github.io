@@ -19,11 +19,10 @@
       <a href="images.html">2. Images</a>
       <a href="videos.html">3. Videos</a>
       <a class="here" href="story.html">4. Story</a>
-      <a href="dialog.html">5. Dialogue</a>
-      <a href="music.html">6. Music</a>
-      <a href="guestbook.html">7. Guestbook</a>
-      <a href="revenue.html">8. Revenue</a>
-      <a href="screening.html">9. Screening</a>
+      <a href="music.html">5. Music</a>
+      <a href="guestbook.html">6. Guestbook</a>
+      <a href="revenue.html">7. Revenue</a>
+      <a href="screening.html">8. Screening</a>
       <a href="../story.html">한국어</a>
     </nav>
   </header>
@@ -37,11 +36,7 @@
     </p>
 
 
-    <p class="hl-guide">✎ <b>Drag</b> any passage to leave feedback right there. Use the <b>highlighter button</b> on the right for whole-story feedback too.</p>
-    <figure class="story-poster">
-      <img src="../assets/poster.jpg" alt="The Limits of My World poster — Wittgenstein v4.5" width="1158" height="1158">
-      <figcaption>Poster — Wittgenstein v4.5</figcaption>
-    </figure>
+    <p class="hl-guide">✎ Tap the <b>highlighter button</b> on the right to turn on feedback mode. <b>Drag</b> passages to collect several, and send your feedback all at once.</p>
 
     <details class="node">
       <summary>
@@ -91,9 +86,6 @@ Camera zooms out. All the universes appear tiled across the screen (as in Inters
 The Runway panel highlights; with a click, that universe expands to fill the frame — and Wittgenstein moves forward again, slowly.
 Sound: at each transition, a short glitch + a single keystroke (tick) + a data-transfer beep — an oblique signal that a human is choosing what to generate. At the moment of settling: a clean "click."</p></div>
         <p class="node-credit"><b>Contributing Writers</b> — none yet. Adopted feedback is written into the living cut, and its authors are credited here.</p>
-        <details class="memo-fold" data-node="NODE 1">
-          <summary>✎ Leave a note right here — NODE 1</summary>
-        </details>
       </div>
     </details>
 
@@ -155,9 +147,6 @@ He lifts one huge slab of glacier into the air. Below, the boiling bubbles slowl
 He puts the glacier back down. Splash. Ripples.
 He watches. The calming waves, and the dead fish moving with them.</p></div>
         <p class="node-credit"><b>Contributing Writers</b> — none yet. Adopted feedback is written into the living cut, and its authors are credited here.</p>
-        <details class="memo-fold" data-node="NODE 2">
-          <summary>✎ Leave a note right here — NODE 2</summary>
-        </details>
       </div>
     </details>
 
@@ -196,9 +185,6 @@ With the sound of Enter keys, prompts and images scroll rapidly up the screen. (
 The last line: <b>"What would you like to generate?"</b>
 Camera zooms out.</p></div>
         <p class="node-credit"><b>Contributing Writers</b> — none yet. Adopted feedback is written into the living cut, and its authors are credited here.</p>
-        <details class="memo-fold" data-node="NODE 3">
-          <summary>✎ Leave a note right here — NODE 3</summary>
-        </details>
       </div>
     </details>
 
@@ -235,9 +221,6 @@ A lit workroom. Lived-in ambient sound — computer fans, hard drives, a real ke
 The camera pulls back slowly: the outlet → desk legs and cables → monitors, keyboard, someone's back → the whole room.
 Full shot: two people typing — Siyun and the art director.</p></div>
         <p class="node-credit"><b>Contributing Writers</b> — none yet. Adopted feedback is written into the living cut, and its authors are credited here.</p>
-        <details class="memo-fold" data-node="NODE 4">
-          <summary>✎ Leave a note right here — NODE 4</summary>
-        </details>
       </div>
     </details>
 
@@ -277,9 +260,6 @@ SPECIAL THANKS — everyone who has left their name in the guestbook · Each Oth
 This film was produced with AI. This film is about AI. But it began as a reflection on people and society.
 © 2026 SIYUN LEE</p></div>
         <p class="node-credit"><b>Contributing Writers</b> — none yet. Adopted feedback is written into the living cut, and its authors are credited here.</p>
-        <details class="memo-fold" data-node="NODE 5">
-          <summary>✎ Leave a note right here — NODE 5</summary>
-        </details>
       </div>
     </details>
 
@@ -321,13 +301,9 @@ This film was produced with AI. This film is about AI. But it began as a reflect
       <p style="color:var(--bone-dim);line-height:1.85;margin:0;max-width:64ch">This work was made through countless conversations with several AIs (Gemini, Claude, Grok, and more). The raw dialogue and its classification will be published here in full — currently being organised and reviewed, and kept private for now.</p>
     </div>
 
-    <details class="memo-fold" id="storyMemo" data-node="Whole story" style="margin-top:36px">
-      <summary>✎ Leave feedback on the whole story</summary>
-    </details>
-
     <div class="pager">
       <a href="videos.html">← 3. Videos</a>
-      <a href="music.html">6. Music →</a>
+      <a href="music.html">5. Music →</a>
     </div>
   </main>
 
@@ -338,80 +314,33 @@ This film was produced with AI. This film is about AI. But it began as a reflect
 
 </div>
 
-<button id="hlFab" class="hl-fab" type="button" title="Leave feedback with the highlighter" aria-label="highlighter feedback">🖍</button>
-<div id="hlHint" class="hl-hint" hidden>
-  <span><b>Drag</b> the part to comment on</span>
-  <button type="button" class="hl-hint-whole">Whole story</button>
-  <button type="button" class="hl-hint-x" aria-label="close">×</button>
-</div>
-<div id="hlPop" class="hl-pop" hidden>
-  <button type="button" data-mode="part">This passage</button>
-  <button type="button" data-mode="whole">Whole story</button>
-</div>
+<button id="hlFab" class="hl-fab" type="button" title="Leave feedback with the highlighter" aria-label="feedback mode"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+<div id="hlPop" class="hl-pop" hidden><button type="button" data-act="add">＋ Collect this passage</button></div>
+
+<aside id="fbTray" class="fb-tray" hidden>
+  <div class="fb-tray-head"><span>Feedback mode</span><button type="button" id="fbExit" class="fb-tray-x">× Close</button></div>
+  <p class="fb-tray-hint"><b>Drag</b> passages to collect several, then send at once. Everything is gathered into <b>one person’s feedback</b>. With no passage collected, it becomes whole-story feedback.</p>
+  <div class="fb-items" id="fbItems"><p class="fb-items-empty" id="fbItemsEmpty">Nothing collected yet.</p></div>
+  <form id="fbForm" class="fb-tray-form">
+    <textarea id="fbMsg" name="msg" placeholder="Your feedback on the collected passages or the whole story…" maxlength="2000"></textarea>
+    <div class="fb-tray-row">
+      <input id="fbName" name="name" type="text" placeholder="Name / nickname" required maxlength="40">
+      <input id="fbEmail" name="email" type="email" placeholder="Email (private)" required>
+    </div>
+    <div class="fb-tray-row">
+      <input id="fbInsta" name="insta" type="text" placeholder="@instagram (optional)" maxlength="40">
+      <select id="fbCredit" name="credit"><option value="이름">Credit: name</option><option value="이메일 아이디">Credit: email handle</option><option value="인스타그램">Credit: Instagram</option></select>
+    </div>
+    <div class="fb-tray-submit"><button type="submit" id="fbSend" class="fb-send">Send feedback</button><span id="fbStatus" class="fb-tray-status"></span></div>
+  </form>
+</aside>
 
 <script src="../gb-config.js"></script>
 <script>
 (function () {
-  function gbSubmit(form, node, btn, status) {
-    if (!window.GB_API) return;
-    var body = new URLSearchParams();
-    body.append('name', form.name.value.trim());
-    body.append('email', form.email.value.trim());
-    body.append('insta', form.insta.value.trim());
-    body.append('credit', form.credit.value);
-    body.append('msg', form.msg.value.trim());
-    body.append('node', node);
-    btn.classList.add('disabled');
-    status.textContent = 'Sending…';
-    fetch(GB_API, { method: 'POST', mode: 'no-cors', body: body })
-      .then(function () {
-        status.classList.add('ok');
-        status.textContent = 'Left. Thank you.';
-        form.reset();
-        btn.classList.remove('disabled');
-      })
-      .catch(function () {
-        status.textContent = 'Failed to send — please try again shortly.';
-        btn.classList.remove('disabled');
-      });
-  }
-
-  var TPL = '<form class="gb-form">' +
-    '<div class="gb-field"><label>Note <span class="req">*</span></label><textarea name="msg" required maxlength="2000"></textarea></div>' +
-    '<div class="gb-row">' +
-    '<div class="gb-field"><label>Name / nickname <span class="req">*</span></label><input name="name" type="text" required maxlength="40"></div>' +
-    '<div class="gb-field"><label>Email <span class="req">*</span> <small>(private)</small></label><input name="email" type="email" required></div>' +
-    '</div>' +
-    '<div class="gb-row">' +
-    '<div class="gb-field"><label>Instagram <small>(optional)</small></label><input name="insta" type="text" placeholder="@youraccount" maxlength="40"></div>' +
-    '<div class="gb-field"><label>Credit as <span class="req">*</span></label><select name="credit">' +
-    '<option value="이름">Name / nickname</option><option value="이메일 아이디">Email handle (before @)</option><option value="인스타그램">Instagram</option>' +
-    '</select></div>' +
-    '</div>' +
-    '<div class="gb-submit-row"><button class="gb-btn" type="submit">Leave note</button><span class="gb-status"></span></div>' +
-    '</form>';
-  document.querySelectorAll('details.memo-fold').forEach(function (fold) {
-    fold.insertAdjacentHTML('beforeend', TPL);
-    var form = fold.querySelector('form');
-    var status = fold.querySelector('.gb-status');
-    var btn = fold.querySelector('button');
-    if (!window.GB_API) {
-      btn.classList.add('disabled');
-      btn.setAttribute('aria-disabled', 'true');
-      status.textContent = 'Opening soon';
-    }
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (form.dataset.quote && form.msg.value.indexOf('「') !== 0) {
-        form.msg.value = '「' + form.dataset.quote + '」\n' + form.msg.value;
-      }
-      gbSubmit(form, fold.getAttribute('data-node'), btn, status);
-    });
-  });
-
-  // participation badges
-  if (window.GB_API) {
-    fetch(GB_API).then(function (r) { return r.json(); }).then(function (d) {
+  var GB = window.GB_API;
+  if (GB) {
+    fetch(GB).then(function (r) { return r.json(); }).then(function (d) {
       var byNode = {};
       ((d && d.entries) || []).forEach(function (e) {
         if (!e.node) return;
@@ -419,60 +348,77 @@ This film was produced with AI. This film is about AI. But it began as a reflect
         if (byNode[e.node].indexOf(e.who) === -1) byNode[e.node].push(e.who);
       });
       document.querySelectorAll('details.node').forEach(function (node) {
-        var fold = node.querySelector('.memo-fold');
-        var name = fold && fold.getAttribute('data-node');
-        var n = (byNode[name] || []).length;
-        if (!n) return;
-        var badge = document.createElement('span');
-        badge.className = 'node-count';
-        badge.textContent = n + (n === 1 ? ' person' : ' people') + ' gave feedback';
-        node.querySelector('.node-title').appendChild(badge);
+        var num = node.querySelector('.node-num'); if (!num) return;
+        var n = (byNode[num.textContent.trim()] || []).length; if (!n) return;
+        var b = document.createElement('span'); b.className = 'node-count';
+        b.textContent = n + (n === 1 ? ' person' : ' people') + ' gave feedback';
+        node.querySelector('.node-title').appendChild(b);
       });
     }).catch(function () {});
   }
 
-  // highlighter FAB: fixed right → select range → this-passage / whole-story feedback
   var fab = document.getElementById('hlFab');
-  var hint = document.getElementById('hlHint');
   var pop = document.getElementById('hlPop');
-  var storyMemo = document.getElementById('storyMemo');
+  var tray = document.getElementById('fbTray');
+  var itemsBox = document.getElementById('fbItems');
+  var itemsEmpty = document.getElementById('fbItemsEmpty');
+  var form = document.getElementById('fbForm');
+  var status = document.getElementById('fbStatus');
+  var sendBtn = document.getElementById('fbSend');
+  var collected = [];
   var curRange = null, curBody = null;
 
-  function openMemo(fold, quote) {
-    if (!fold) return;
-    fold.open = true;
-    var form = fold.querySelector('form');
-    if (!form) return;
-    var old = form.querySelector('.gb-quote');
-    if (old) old.remove();
-    if (quote) {
-      var q = document.createElement('div');
-      q.className = 'gb-quote';
-      var lb = document.createElement('span'); lb.className = 'q-label'; lb.textContent = 'A note on this passage';
-      q.appendChild(lb);
-      q.appendChild(document.createTextNode('“' + quote + '”'));
-      form.insertBefore(q, form.firstChild);
-      form.dataset.quote = quote;
-    } else {
-      delete form.dataset.quote;
-    }
-    var ta = form.querySelector('textarea');
-    fold.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(function () { if (ta) ta.focus(); }, 320);
+  function inMode() { return document.body.classList.contains('hl-mode'); }
+  function hidePop() { pop.hidden = true; curRange = null; curBody = null; }
+  function clearHighlights() {
+    document.querySelectorAll('mark.hl').forEach(function (m) {
+      var t = document.createTextNode(m.textContent);
+      m.parentNode.replaceChild(t, m);
+    });
   }
-  function hidePop() { pop.hidden = true; }
   function setMode(on) {
     document.body.classList.toggle('hl-mode', on);
     fab.classList.toggle('on', on);
-    hint.hidden = !on;
-    if (!on) hidePop();
+    tray.hidden = !on;
+    if (!on) { hidePop(); clearHighlights(); collected = []; render(); }
+  }
+  function render() {
+    itemsBox.querySelectorAll('.fb-item').forEach(function (n) { n.remove(); });
+    itemsEmpty.style.display = collected.length ? 'none' : 'block';
+    collected.forEach(function (c, i) {
+      var row = document.createElement('div'); row.className = 'fb-item';
+      var q = document.createElement('span'); q.className = 'fb-item-q';
+      q.textContent = (i + 1) + '. “' + c.quote.slice(0, 90) + (c.quote.length > 90 ? '…' : '') + '”';
+      q.addEventListener('click', function () { if (c.mark) c.mark.scrollIntoView({ behavior: 'smooth', block: 'center' }); });
+      var nd = document.createElement('span'); nd.className = 'fb-item-node'; nd.textContent = c.node;
+      var x = document.createElement('button'); x.type = 'button'; x.className = 'fb-item-x'; x.textContent = '×';
+      x.addEventListener('click', function () {
+        if (c.mark) { var t = document.createTextNode(c.mark.textContent); c.mark.parentNode.replaceChild(t, c.mark); }
+        collected.splice(i, 1); render();
+      });
+      row.appendChild(q); row.appendChild(nd); row.appendChild(x);
+      itemsBox.appendChild(row);
+    });
+  }
+  function addPassage() {
+    if (!curRange || !curBody) return;
+    var quote = curRange.toString().trim().slice(0, 300);
+    if (!quote) return;
+    var nodeEl = curBody.closest ? curBody.closest('details.node') : null;
+    var nm = nodeEl && nodeEl.querySelector('.node-num');
+    var mark = null;
+    try { mark = document.createElement('mark'); mark.className = 'hl'; curRange.surroundContents(mark); } catch (e) { mark = null; }
+    collected.push({ quote: quote, node: nm ? nm.textContent.trim() : 'Story', mark: mark });
+    render();
+    window.getSelection().removeAllRanges();
+    hidePop();
   }
 
-  fab.addEventListener('click', function () { setMode(!document.body.classList.contains('hl-mode')); });
-  hint.querySelector('.hl-hint-x').addEventListener('click', function () { setMode(false); });
-  hint.querySelector('.hl-hint-whole').addEventListener('click', function () { openMemo(storyMemo, null); setMode(false); });
+  fab.addEventListener('click', function () { setMode(!inMode()); });
+  document.getElementById('fbExit').addEventListener('click', function () { setMode(false); });
 
   function onSelEnd() {
+    if (!inMode()) return;
     setTimeout(function () {
       var sel = window.getSelection();
       if (!sel || sel.isCollapsed || !sel.toString().trim()) { hidePop(); return; }
@@ -480,7 +426,7 @@ This film was produced with AI. This film is about AI. But it began as a reflect
       var el = range.commonAncestorContainer;
       if (el.nodeType === 3) el = el.parentElement;
       var body = el.closest ? el.closest('.node-body') : null;
-      if (!body || el.closest('.memo-fold')) { hidePop(); return; }
+      if (!body) { hidePop(); return; }
       curRange = range.cloneRange(); curBody = body;
       var rect = range.getBoundingClientRect();
       pop.hidden = false;
@@ -490,28 +436,37 @@ This film was produced with AI. This film is about AI. But it began as a reflect
   }
   document.addEventListener('mouseup', onSelEnd);
   document.addEventListener('touchend', onSelEnd);
-  document.addEventListener('mousedown', function (e) { if (!pop.contains(e.target) && e.target !== fab) hidePop(); });
-
+  document.addEventListener('mousedown', function (e) {
+    if (!pop.contains(e.target) && e.target !== fab && !tray.contains(e.target)) hidePop();
+  });
   pop.addEventListener('click', function (e) {
-    var b = e.target.closest('button'); if (!b || !curRange) return;
-    var mode = b.getAttribute('data-mode');
-    var quote = curRange.toString().trim().slice(0, 300);
-    if (mode === 'part') {
-      try { var mk = document.createElement('mark'); mk.className = 'hl'; curRange.surroundContents(mk); } catch (err) {}
-      openMemo(curBody.querySelector('.memo-fold'), quote);
-    } else {
-      openMemo(storyMemo, null);
-    }
-    window.getSelection().removeAllRanges();
-    hidePop();
+    if (e.target.closest('button')) addPassage();
   });
 
-  document.querySelectorAll('details.memo-fold form').forEach(function (form) {
-    form.addEventListener('submit', function () {
-      if (form.dataset.quote && form.msg.value.indexOf('“') !== 0) {
-        form.msg.value = '“' + form.dataset.quote + '”\n' + form.msg.value;
-      }
-    }, true);
+  if (!GB) { sendBtn.classList.add('disabled'); status.textContent = 'Opening soon…'; }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!GB) return;
+    var name = form.name.value.trim(), email = form.email.value.trim(), note = form.msg.value.trim();
+    if (!name || !email) { status.textContent = 'Please enter your name and email.'; return; }
+    if (!collected.length && !note) { status.textContent = 'Write feedback or collect a passage first.'; return; }
+    var parts = collected.map(function (c, i) { return (i + 1) + '. 「' + c.quote + '」[' + c.node + ']'; }).join('\n');
+    var full = (parts ? '[Passages]\n' + parts + '\n\n' : '') + (note ? '[Feedback]\n' + note : '');
+    var nodes = [];
+    collected.forEach(function (c) { if (nodes.indexOf(c.node) === -1) nodes.push(c.node); });
+    var nodeField = collected.length ? (nodes.length === 1 ? nodes[0] : 'Multiple nodes') : 'Whole story';
+    var body = new URLSearchParams();
+    body.append('name', name); body.append('email', email);
+    body.append('insta', form.insta.value.trim()); body.append('credit', form.credit.value);
+    body.append('msg', full); body.append('node', nodeField);
+    sendBtn.classList.add('disabled'); status.classList.remove('ok'); status.textContent = 'Sending…';
+    fetch(GB, { method: 'POST', mode: 'no-cors', body: body }).then(function () {
+      status.classList.add('ok'); status.textContent = 'Sent. Thank you!';
+      form.reset();
+      setTimeout(function () { setMode(false); }, 1400);
+    }).catch(function () {
+      status.textContent = 'Failed — please try again shortly.'; sendBtn.classList.remove('disabled');
+    });
   });
 })();
 </script>

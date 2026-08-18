@@ -807,7 +807,7 @@ footer a:hover { color: var(--led); }
 /* ── 스토리 형광펜 FAB 피드백 ── */
 .hl-guide { font-family: var(--mono); font-size: 12px; letter-spacing: 0.02em; color: var(--bone-dim); border-left: 2px solid var(--led); padding: 6px 0 6px 12px; margin: 22px 0 4px; line-height: 1.7; }
 .hl-guide b { color: var(--led); }
-.hl-fab { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 50; width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--led); background: var(--panel); color: var(--led); font-size: 22px; line-height: 1; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.4); transition: background 0.15s, transform 0.15s; }
+.hl-fab { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 50; width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--led); background: var(--panel); color: var(--led); cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.4); transition: background 0.15s, transform 0.15s; display: flex; align-items: center; justify-content: center; }
 .hl-fab:hover { transform: translateY(-50%) scale(1.06); }
 .hl-fab.on { background: var(--led); color: var(--void); }
 .hl-hint { position: fixed; right: 84px; top: 50%; transform: translateY(-50%); z-index: 50; display: flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--panel-edge); border-radius: 8px; padding: 10px 12px; font-family: var(--mono); font-size: 12px; color: var(--bone-dim); box-shadow: 0 4px 16px rgba(0,0,0,0.4); max-width: 260px; }
@@ -842,3 +842,26 @@ mark.hl { background: rgba(255,61,46,0.28); color: inherit; padding: 0 1px; }
   .gb-split { grid-template-columns: 1fr; gap: 22px; }
   .gb-thanks-col .thanks-names, .gb-entries-col .gb-entries { max-height: 46vh; }
 }
+
+
+/* ── 스토리 피드백 트레이(피드백 모드) ── */
+.fb-tray { position: fixed; right: 20px; bottom: 20px; z-index: 55; width: min(360px, calc(100vw - 40px)); max-height: 82vh; overflow-y: auto; background: var(--panel); border: 1px solid var(--led); border-radius: 12px; padding: 15px 16px 14px; box-shadow: 0 10px 34px rgba(0,0,0,0.5); font-family: var(--sans); }
+.fb-tray-head { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.12em; color: var(--led); text-transform: uppercase; }
+.fb-tray-x { background: none; border: none; color: var(--bone-faint); font-family: var(--mono); font-size: 12px; cursor: pointer; }
+.fb-tray-hint { font-size: 12px; color: var(--bone-dim); line-height: 1.6; margin: 8px 0 12px; }
+.fb-tray-hint b { color: var(--led); }
+.fb-items { display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px; }
+.fb-items-empty { font-size: 12px; color: var(--bone-faint); margin: 0; line-height: 1.6; }
+.fb-item { display: flex; align-items: flex-start; gap: 8px; background: var(--void); border: 1px solid var(--panel-edge); border-radius: 7px; padding: 8px 10px; }
+.fb-item-q { flex: 1; font-size: 12.5px; color: var(--bone); line-height: 1.5; cursor: pointer; }
+.fb-item-node { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.06em; color: var(--led); white-space: nowrap; margin-top: 3px; }
+.fb-item-x { background: none; border: none; color: var(--bone-faint); cursor: pointer; font-size: 15px; line-height: 1; padding: 0; }
+.fb-tray-form textarea { width: 100%; min-height: 62px; resize: vertical; background: var(--void); border: 1px solid var(--panel-edge); border-radius: 7px; color: var(--bone); font-family: var(--sans); font-size: 13px; padding: 9px 10px; box-sizing: border-box; }
+.fb-tray-row { display: flex; gap: 8px; margin-top: 8px; }
+.fb-tray-row input, .fb-tray-row select { flex: 1; min-width: 0; background: var(--void); border: 1px solid var(--panel-edge); border-radius: 7px; color: var(--bone); font-family: var(--sans); font-size: 12.5px; padding: 8px 9px; box-sizing: border-box; }
+.fb-tray-submit { display: flex; align-items: center; gap: 10px; margin-top: 11px; }
+.fb-send { background: var(--led); color: var(--void); border: none; border-radius: 7px; font-family: var(--sans); font-weight: 700; font-size: 13px; padding: 10px 18px; cursor: pointer; }
+.fb-send.disabled { opacity: 0.5; pointer-events: none; }
+.fb-tray-status { font-family: var(--mono); font-size: 11px; color: var(--bone-dim); }
+.fb-tray-status.ok { color: var(--led); }
+@media (max-width: 720px) { .fb-tray { right: 10px; left: 10px; bottom: 10px; width: auto; max-height: 70vh; } }
