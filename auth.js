@@ -3,7 +3,12 @@
 const SUPA_URL = 'https://fdbqilofjmrcqzhcivlg.supabase.co';
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkYnFpbG9mam1yY3F6aGNpdmxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNTk2ODYsImV4cCI6MjEwMjYzNTY4Nn0.YyHEcwHGLggZ7nSqY6MjIV0fUg4QiwTKHfbR8UOZYiQ';
 
-window.NOALIBI = { supa: null, user: null, profile: null };
+let _readyResolve;
+window.NOALIBI = {
+  supa: null, user: null, profile: null,
+  login: () => openModal(),
+  ready: new Promise((r) => { _readyResolve = r; })
+};
 let supa = null;
 
 const KO = (document.documentElement.lang || 'ko') !== 'en';
@@ -121,6 +126,8 @@ async function refresh() {
   supa = createClient(SUPA_URL, SUPA_KEY);
   window.NOALIBI.supa = supa;
   supa.auth.onAuthStateChange(() => { refresh(); closeModal(); });
+  document.addEventListener('noalibi-refresh', () => refresh());
+  if (_readyResolve) _readyResolve(supa);
   refresh();
   console.log('[noalibi] auth ready');
 })();
